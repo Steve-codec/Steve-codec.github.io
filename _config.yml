@@ -7,7 +7,7 @@ title: 我的博客
 subtitle: 记录笔记与思考
 description: 记录笔记与思考
 keywords:
-author: ''
+author: 博主
 language: zh-CN
 timezone: ''
 
@@ -102,3 +102,10 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# 为 Butterfly 的本地搜索生成索引。部署时会自动产出 public/search.json。
+search:
+  path: search.json
+  field: post
+  content: true
+  format: striptags

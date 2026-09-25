@@ -1,0 +1,11 @@
+- class_name: 建站资源
+  class_desc: 使用 Hexo 与 Butterfly 的参考资料
+  link_list:
+    - name: Hexo
+      link: https://hexo.io/zh-cn/
+      avatar: /img/butterfly-icon.png
+      descr: 静态博客框架
+    - name: Butterfly
+      link: https://butterfly.js.org/
+      avatar: /img/butterfly-icon.png
+      descr: 当前博客使用的主题

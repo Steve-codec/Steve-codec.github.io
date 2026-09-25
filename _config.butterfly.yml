@@ -1,5 +1,64 @@
-# 这里放 Butterfly 的个人设置；其余选项沿用主题默认值。
-# 文档：https://butterfly.js.org/
+# 只写与主题默认值不同的设置，升级主题时不必修改 node_modules。
+# 文档：https://butterfly.js.org/posts/4aa8abbe/
 menu:
   主页: / || fas fa-home
-  归档: /archives/ || fas fa-archive
+  博文||fas fa-book:
+    分类: /categories/ || fas fa-folder-open
+    标签: /tags/ || fas fa-tags
+    归档: /archives/ || fas fa-archive
+  关于: /about/ || fas fa-user
+  友链: /links/ || fas fa-link
+
+# 首页标题下的短句。更换个人简介时也可修改这里。
+subtitle:
+  enable: true
+  effect: false
+  source: false
+  sub: 记录笔记与思考
+
+# 与参考站一样使用交替排列的文章卡片。
+index_layout: 3
+index_post_content:
+  method: 3
+  length: 300
+
+aside:
+  enable: true
+  position: right
+  card_author:
+    enable: true
+    description: 记录笔记与思考
+    button:
+      enable: false # 确定 GitHub 账号后再填写链接并启用
+  card_announcement:
+    enable: true
+    content: 欢迎来到我的博客。
+  card_recent_post:
+    enable: true
+    limit: 5
+  card_categories:
+    enable: true
+  card_tags:
+    enable: true
+  card_archives:
+    enable: true
+  card_webinfo:
+    enable: true
+
+search:
+  use: local_search
+  placeholder: 搜索文章...
+
+wordcount:
+  enable: true
+  post_wordcount: true
+  min2read: true
+  total_wordcount: true
+
+translate:
+  enable: true
+
+footer:
+  owner:
+    enable: true
+    since: 2026
