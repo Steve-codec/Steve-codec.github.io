@@ -6,7 +6,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server --ip 127.0.0.1",
+    "preview": "hexo server --draft --ip 127.0.0.1"
   },
   "hexo": {
     "version": "8.1.2"

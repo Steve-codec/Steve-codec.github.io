@@ -7,7 +7,6 @@ menu:
     标签: /tags/ || fas fa-tags
     归档: /archives/ || fas fa-archive
   关于: /about/ || fas fa-user
-  友链: /links/ || fas fa-link
 
 # 首页标题下的短句。更换个人简介时也可修改这里。
 subtitle:
@@ -19,8 +18,50 @@ subtitle:
 # 与参考站一样使用交替排列的文章卡片。
 index_layout: 3
 index_post_content:
-  method: 3
-  length: 300
+  method: 2 # 优先显示文章 description，没有时自动截取正文
+  length: 160
+
+# 深色阅读风格；右下角仍可切换明暗。
+display_mode: dark
+darkmode:
+  enable: true
+  button: true
+  autoChangeMode: false
+enter_transitions: false # 由下面的轻量动画控制，避免重复入场
+index_top_img_height: 360px
+
+# 以后把背景放入 source/img/，再填写 /img/你的背景.jpg。
+background:
+index_img:
+
+avatar:
+  img: /img/avatar.svg
+  effect: false
+favicon: /img/avatar.svg
+
+cover:
+  index_enable: true
+  aside_enable: false
+  archives_enable: true
+  default_cover: /img/covers/notes.svg
+
+theme_color:
+  enable: true
+  main: '#95baa8'
+  button_hover: '#769e8a'
+  link_color: '#95baa8'
+  text_selection: '#537762'
+  paginator: '#769e8a'
+  scrollbar_color: '#637d6f'
+
+code_blocks:
+  theme: darker
+  macStyle: true
+  height_limit: 400
+
+social: {}
+share:
+  use:
 
 aside:
   enable: true
@@ -31,19 +72,18 @@ aside:
     button:
       enable: false # 确定 GitHub 账号后再填写链接并启用
   card_announcement:
-    enable: true
-    content: 欢迎来到我的博客。
+    enable: false
   card_recent_post:
-    enable: true
-    limit: 5
+    enable: false
   card_categories:
     enable: true
   card_tags:
     enable: true
   card_archives:
-    enable: true
+    enable: false
   card_webinfo:
     enable: true
+    last_push_date: false
 
 search:
   use: local_search
@@ -56,9 +96,21 @@ wordcount:
   total_wordcount: true
 
 translate:
-  enable: true
+  enable: false
+
+# 不加载第三方访问统计；网站信息保留文章数与字数。
+busuanzi:
+  site_uv: false
+  site_pv: false
+  page_pv: false
 
 footer:
   owner:
     enable: true
     since: 2026
+
+inject:
+  head:
+    - <link rel="stylesheet" href="/css/journal.css">
+  bottom:
+    - <script src="/js/journal.js" defer></script>

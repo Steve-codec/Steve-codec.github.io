@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 580" fill="none">
+  <rect width="840" height="580" fill="#283a31"/>
+  <path d="M0 470C140 320 220 420 350 275S650 150 840 50M0 520C180 330 280 470 400 310S640 210 840 100M0 565C190 410 320 500 450 355S700 265 840 160" stroke="#8faf98" stroke-opacity=".12" stroke-width="2"/>
+  <rect x="244" y="116" width="350" height="352" rx="7" fill="#a8b99a" fill-opacity=".08" stroke="#a8b99a" stroke-opacity=".35"/>
+  <rect x="224" y="96" width="350" height="352" rx="7" fill="#32463a" stroke="#a8b99a" stroke-opacity=".6"/>
+  <path d="M274 96V448" stroke="#a8b99a" stroke-opacity=".35"/>
+  <path d="M307 230H514M307 262H514M307 294H484M307 326H500M307 358H436" stroke="#a8b99a" stroke-opacity=".4" stroke-width="2"/>
+  <circle cx="494" cy="166" r="13" stroke="#c5b58a" stroke-width="2"/>
+  <text x="307" y="180" fill="#cbd5bc" font-family="Arial,sans-serif" font-size="22" letter-spacing="5">NOTES</text>
+</svg>

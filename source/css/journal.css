@@ -1,0 +1,127 @@
+/* 外观微调：独立于 Butterfly，主题升级时保留此文件。 */
+:root {
+  --journal-accent: #537d66;
+  --journal-surface: rgba(255, 255, 255, .94);
+  --journal-line: rgba(49, 65, 54, .10);
+  --journal-muted: #78827b;
+  --journal-text: #4d5851;
+  --journal-title: #27352c;
+  --journal-bg: radial-gradient(ellipse at 15% 0%, #e3ebe1 0, transparent 50%), #f3f4ef;
+}
+
+[data-theme="dark"] {
+  --journal-accent: #a4c2b1;
+  --journal-surface: rgba(23, 27, 26, .94);
+  --journal-line: rgba(211, 227, 213, .08);
+  --journal-muted: #94a099;
+  --journal-text: #b8c0ba;
+  --journal-title: #e6eae4;
+  --journal-bg: radial-gradient(ellipse at 12% 0%, #24312b 0, transparent 48%), #101513;
+  --global-bg: #101513;
+  --card-bg: #171b1a;
+  --font-color: #c6cec7;
+  --text-highlight-color: #e6eae4;
+  --card-meta: #94a099;
+}
+
+body { background: var(--journal-bg) fixed; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+#web_bg { background: var(--journal-bg); }
+/* background/index_img 的行内设置会自然覆盖底色，无须再改 CSS。 */
+#page-header.full_page { height: 360px; background-color: transparent; }
+#page-header.full_page::before { background: linear-gradient(180deg, transparent 65%, rgba(10, 15, 12, .06)); }
+#page-header.full_page #site-info { top: 47%; transform: translateY(-25%); }
+#page-header.full_page #site-title { color: var(--journal-title); font-size: clamp(30px, 4vw, 46px); font-weight: 600; letter-spacing: .05em; text-shadow: none; }
+#page-header.full_page #site-subtitle { margin-top: 12px; color: var(--journal-muted); font-size: 15px; letter-spacing: .16em; text-shadow: none; }
+#page-header.full_page #nav:not(.nav-fixed) { color: var(--journal-title); text-shadow: none; }
+#page-header.full_page #nav:not(.nav-fixed) .site-page,
+#page-header.full_page #nav:not(.nav-fixed) .site-name { color: var(--journal-title); }
+#page-header.full_page #scroll-down .scroll-down-effects { color: var(--journal-muted); }
+#nav { padding-right: max(28px, calc((100% - 1180px) / 2)); padding-left: max(28px, calc((100% - 1180px) / 2)); }
+#nav .site-name { font-weight: 600; letter-spacing: .04em; }
+#nav .menus_items .menus_item { padding-right: 6px; padding-left: 6px; }
+
+.layout { max-width: 1220px; padding: 28px 20px 64px; gap: 24px; }
+.layout > .recent-posts { width: calc(100% - 264px); }
+#aside-content { width: 240px; padding-left: 0; }
+#aside-content .card-widget { margin-top: 20px; padding: 24px; border: 1px solid var(--journal-line); border-radius: 12px; background: var(--journal-surface); box-shadow: none; }
+#aside-content .card-widget:first-child { margin-top: 0; }
+#aside-content .avatar-img { width: 82px; height: 82px; margin-bottom: 12px; }
+#aside-content .author-info-name { font-size: 21px; }
+#aside-content .author-info-description { margin: 8px 0 18px; color: var(--journal-muted); font-size: 13px; }
+#aside-content .item-headline { font-size: 15px; font-weight: 500; }
+#aside-content .item-headline i { margin-right: 10px; color: var(--journal-muted); }
+#aside-content .site-data .headline { color: var(--journal-muted); font-size: 12px; }
+#aside-content .card-tag-cloud a { margin: 2px; padding: 1px 8px; border-radius: 5px; font-size: 12px !important; }
+#aside-content .card-tag-cloud a:hover { background: var(--journal-line); }
+
+#recent-posts .recent-post-item {
+  height: 260px;
+  margin-bottom: 22px;
+  border: 1px solid var(--journal-line);
+  border-radius: 12px;
+  background: var(--journal-surface);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, .06);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+#recent-posts .recent-post-item .post_cover { width: 42%; height: 100%; flex-shrink: 0; background: #26352e; }
+#recent-posts .recent-post-item .post_cover a { display: block; width: 100%; height: 100%; }
+#recent-posts .recent-post-item .post-bg { width: 100%; height: 100%; object-fit: cover; transition: transform .75s cubic-bezier(.2,.65,.3,1); }
+[data-theme="dark"] #recent-posts .recent-post-item .post-bg { filter: brightness(.88); }
+#recent-posts .recent-post-item > .recent-post-info { width: 58%; padding: 28px 34px; }
+#recent-posts .recent-post-item > .recent-post-info.no-cover { width: 100%; }
+#recent-posts .recent-post-item > .recent-post-info > .article-title { color: var(--journal-title); font-size: 22px; font-weight: 550; line-height: 1.5; letter-spacing: -.02em; }
+#recent-posts .recent-post-item > .recent-post-info > .article-title:hover { color: var(--journal-accent); }
+#recent-posts .recent-post-item > .recent-post-info > .article-meta-wrap { margin: 10px 0 14px; color: var(--journal-muted); font-size: 12px; line-height: 1.8; }
+#recent-posts .recent-post-item > .recent-post-info > .content { color: var(--journal-text); font-size: 14px; line-height: 1.9; -webkit-line-clamp: 3; }
+#recent-posts .recent-post-item:focus-within { border-color: var(--journal-accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--journal-accent); outline-offset: 4px; }
+
+@media (hover: hover) {
+  #recent-posts .recent-post-item:hover { transform: translateY(-4px); border-color: rgba(149, 186, 168, .35); box-shadow: 0 16px 38px rgba(0, 0, 0, .16); }
+  #recent-posts .recent-post-item:hover .post-bg { transform: scale(1.045); }
+}
+
+/* 只有 JS 成功接管才隐藏待入场卡片；无 JS 时内容照常显示。 */
+.journal-pending { opacity: 0; }
+.journal-enter { animation: journal-reveal .65s cubic-bezier(.22,.61,.36,1) both; }
+@keyframes journal-reveal { from { opacity: 0; translate: 0 22px; } to { opacity: 1; translate: 0 0; } }
+
+#page, #post, #archive, #tag, #category { border: 1px solid var(--journal-line); border-radius: 12px; box-shadow: none; }
+#article-container { font-size: 15px; line-height: 2; }
+#article-container h2 { margin-top: 2em; }
+.search-dialog { border: 1px solid var(--journal-line); border-radius: 12px; background: var(--journal-surface); }
+.search-dialog hr { border: 0; border-top: 1px solid var(--journal-line); }
+.search-dialog hr::before { display: none; }
+.search-dialog .local-search-input input { padding: 10px 14px; border: 1px solid var(--journal-line); border-radius: 8px; }
+.search-dialog .local-search-input input:focus { border-color: var(--journal-accent); }
+#local-search .search-keyword { color: var(--journal-accent); }
+#footer { background: transparent; }
+#footer .footer-other { padding: 26px 16px 36px; color: var(--journal-muted); font-size: 12px; }
+#footer .footer-other a { color: var(--journal-muted); }
+#rightside > div > button { border-radius: 7px; background: var(--journal-surface); color: var(--journal-muted); }
+
+@media (max-width: 1000px) {
+  .layout { gap: 20px; }
+  .layout > div:first-child { width: 100%; }
+  #aside-content { display: none; }
+}
+@media (max-width: 768px) {
+  #page-header.full_page { height: 300px; }
+  #page-header.full_page #site-title { font-size: 32px; }
+  #page-header.full_page #site-subtitle { font-size: 13px; letter-spacing: .1em; }
+  #nav { padding-right: 20px; padding-left: 20px; }
+  .layout { padding: 18px 16px 40px; }
+  #recent-posts .recent-post-item { flex-direction: column; height: auto; margin-bottom: 22px; }
+  #recent-posts .recent-post-item .post_cover { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+  #recent-posts .recent-post-item .post_cover.right { order: 0; }
+  #recent-posts .recent-post-item > .recent-post-info { width: 100%; padding: 24px; }
+  #recent-posts .recent-post-item > .recent-post-info > .article-title { font-size: 20px; }
+  #recent-posts .recent-post-item > .recent-post-info > .article-meta-wrap { margin: 9px 0 12px; }
+  #recent-posts .recent-post-item > .recent-post-info > .content { -webkit-line-clamp: 3; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .journal-pending { opacity: 1; }
+  .journal-enter, #scroll-down .scroll-down-effects { animation: none !important; }
+  #recent-posts .recent-post-item, #recent-posts .post-bg { transition: none !important; transform: none !important; }
+}

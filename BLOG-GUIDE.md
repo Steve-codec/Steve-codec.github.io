@@ -16,7 +16,7 @@
 
 主题本身安装在 `node_modules/hexo-theme-butterfly/`，不要直接修改。自己的设置写在根目录的 `_config.butterfly.yml`，升级时更容易保留。
 
-### 换头像、简介和 GitHub 按钮
+### 换头像与简介
 
 把头像图片放到 `source/img/avatar.png`，再在 `_config.butterfly.yml` 中加入或修改：
 
@@ -28,14 +28,26 @@ avatar:
 aside:
   card_author:
     description: 这里写一句个人简介
-    button:
-      enable: true
-      icon: fab fa-github
-      text: Follow Me
-      link: https://github.com/你的用户名
 ```
 
 已有的 `aside` 段落请直接编辑，不要在同一文件里再写第二个 `aside:`。网站作者名在 `_config.yml` 的 `author:`；首页标题下的短句在 `_config.butterfly.yml` 的 `subtitle.sub`。
+
+### 新的卡片外观、封面和背景
+
+当前是深色图文卡片：桌面端左右交错，手机端图片在上、文字在下。卡片进入屏幕时轻轻浮现，鼠标悬停时上浮、封面缓慢放大；系统开启“减少动态效果”时自动关闭这些动画。右下角的设置里仍能切换明暗。
+
+每篇文章开头添加 `cover: /img/你的封面.jpg` 即可设置封面，图片放在 `source/img/`。优先使用横图。没有封面时使用随项目提供的笔记本插画；不想显示封面时写 `cover: false`。`description:` 控制卡片摘要，不填时自动截取正文。
+
+在 `_config.butterfly.yml` 中编辑已有字段：
+
+```yaml
+background: /img/background.jpg # 整个网站背后的背景
+index_img: /img/banner.jpg      # 仅首页顶部横幅；可以继续留空
+```
+
+两处图片可以只填其一。背景图片放在 `source/img/`，图片偏亮时建议先压暗，让文字保持清晰。未设置图片时使用默认深绿灰底色。
+
+自定义外观写在 `source/css/journal.css`，动画写在 `source/js/journal.js`，由主题配置末尾的 `inject` 引入。无需修改主题安装目录。若要恢复原生 Butterfly 外观，可移除这两个 `inject` 引用。
 
 ### 写文章
 
@@ -72,12 +84,14 @@ pnpm run server
 
 打开 <http://localhost:4000/>。保存 Markdown 或配置后刷新页面。若页面仍显示旧内容，停止服务器后运行 `pnpm run clean`、`pnpm run build`，再启动服务器。
 
+要查看包含两篇排版示例草稿的完整卡片效果，改为运行 `pnpm run preview`。草稿在 `source/_drafts/`，`pnpm run build` 与 GitHub 自动部署均不发布草稿。主题配置修改后需要用 Ctrl+C 停止服务器并重新启动。
+
 ## 发布到 GitHub Pages
 
 确定要用的 GitHub 账号后，在 GitHub 创建一个**公开**的空仓库，名称必须是 `你的用户名.github.io`。随后：
 
 1. 将 `_config.yml` 中的 `url:` 改为 `https://你的用户名.github.io`。
-2. 把 `_config.yml` 中的 `author:` 改成你希望显示的名字。按需修改 `_config.butterfly.yml` 中的头像、简介、公告和 GitHub 按钮。
+2. 把 `_config.yml` 中的 `author:` 改成你希望显示的名字。按需修改 `_config.butterfly.yml` 中的头像、简介和背景。
 3. 在博客目录运行：
 
    ```powershell
