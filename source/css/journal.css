@@ -32,6 +32,7 @@ body { background: var(--journal-bg) fixed; font-family: -apple-system, BlinkMac
 #page-header.full_page #site-info { top: 47%; transform: translateY(-25%); }
 #page-header.full_page #site-title { color: var(--journal-title); font-size: clamp(30px, 4vw, 46px); font-weight: 600; letter-spacing: .05em; text-shadow: none; }
 #page-header.full_page #site-subtitle { margin-top: 12px; color: var(--journal-muted); font-size: 15px; letter-spacing: .16em; text-shadow: none; }
+#page-header.full_page[style*="background-image"] #site-subtitle { color: #f1f3ed; text-shadow: 0 2px 10px rgba(0, 0, 0, .75); }
 #page-header.full_page #nav:not(.nav-fixed) { color: var(--journal-title); text-shadow: none; }
 #page-header.full_page #nav:not(.nav-fixed) .site-page,
 #page-header.full_page #nav:not(.nav-fixed) .site-name { color: var(--journal-title); }

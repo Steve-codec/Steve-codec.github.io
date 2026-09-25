@@ -11,9 +11,11 @@ menu:
 # 首页标题下的短句。更换个人简介时也可修改这里。
 subtitle:
   enable: true
-  effect: false
+  effect: true
   source: false
-  sub: 记录笔记与思考
+  sub:
+    - 记录笔记与思考
+    - 把一闪而过的想法，慢慢写下来
 
 # 与参考站一样使用交替排列的文章卡片。
 index_layout: 3
@@ -32,12 +34,12 @@ index_top_img_height: 360px
 
 # 以后把背景放入 source/img/，再填写 /img/你的背景.jpg。
 background:
-index_img:
+index_img: /img/banner.jpg
 
 avatar:
-  img: /img/avatar.svg
+  img: /img/avatar.png
   effect: false
-favicon: /img/avatar.svg
+favicon: /img/avatar.png
 
 cover:
   index_enable: true
