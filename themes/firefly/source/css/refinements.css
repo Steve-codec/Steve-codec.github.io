@@ -1,16 +1,14 @@
-/* Small enhancements around the original Rare UI React islands. */
+/* Reading components from Rare UI and a stable, pre-rendered navigation. */
 body { font-family: 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif; }
-.rare-nav-host { width: 100%; overflow-x: auto; padding: 6px 2px; scrollbar-width: none; }
-.rare-nav-host::-webkit-scrollbar { display: none; }
-.rare-nav-host ul { list-style: none; margin: 0; padding: 0; }
-.rare-nav-host [data-slot="gooey-nav"] { display: inline-block; }
-.rare-nav-host [data-slot="gooey-nav"] > ul { display: flex; align-items: center; }
-.rare-nav-host [data-slot="gooey-nav-item"] { text-decoration: none; font-size: 13px; line-height: 1.2; padding: 11px 14px; }
-.rare-nav-host [data-slot="gooey-nav-item"][data-active="false"] { color: var(--text-secondary); }
-.rare-nav-host [data-slot="gooey-nav-item"]:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
-.rare-nav-count { display: inline-flex; font-size: 10px; opacity: .6; font-variant-numeric: tabular-nums; }
-.content-nav-bar[data-enhanced] { display: block; min-width: 0; overflow: hidden; padding: 6px 14px; margin-bottom: 20px; border: 1px solid var(--line-divider); }
-.rare-nav-host { min-width: 0; }
+.content-nav-bar { display: block; min-width: 0; padding: 10px 14px; margin-bottom: 20px; border: 1px solid var(--line-divider); transition: none; }
+.content-nav-track { display: flex; align-items: center; gap: 8px; min-width: 0; overflow-x: auto; padding: 2px; scrollbar-width: none; }
+.content-nav-track::-webkit-scrollbar { display: none; }
+.content-nav-track .content-nav-item { flex: 0 0 auto; height: 38px; box-sizing: border-box; padding: 0 14px; border-radius: 12px; font-size: 13px; line-height: 18px; white-space: nowrap; color: var(--text-secondary); background: color-mix(in oklab, var(--text-primary) 8%, var(--card-bg)); transition: background-color 160ms ease, color 160ms ease; -webkit-tap-highlight-color: transparent; }
+.content-nav-track .content-nav-item:hover { background: var(--btn-regular-bg-hover) !important; color: var(--text-primary) !important; }
+.content-nav-track .content-nav-item.active { background: var(--primary) !important; color: #052e24 !important; }
+.content-nav-track .nav-item-count { font-size: 11px; color: inherit; opacity: .75; margin-left: 0; font-variant-numeric: tabular-nums; }
+.content-nav-track .nav-item-count::before { content: '· '; }
+.content-nav-track .content-nav-item:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
 
 .rare-rail-host { --foreground: var(--text-primary); --background: var(--card-bg); padding: 8px 16px 18px; }
 .rare-rail-toc { width: 100% !important; }
@@ -69,8 +67,9 @@ body { font-family: 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif; }
   .post-list-container[data-layout="list"] .post-card-item[data-has-cover="true"] { grid-template-columns: 1fr; padding: 18px; gap: 16px; }
   .post-list-container[data-layout="list"] .post-card-item[data-has-cover="true"] .post-card-cover { grid-column: 1; grid-row: 1; max-height: 220px; }
   .post-list-container[data-layout="list"] .post-card-item[data-has-cover="true"] .post-card-content { grid-column: 1; grid-row: 2; }
-  .content-nav-bar[data-enhanced] { padding: 4px 10px; }
-  .rare-nav-host [data-slot="gooey-nav-item"] { font-size: 12px; padding: 10px; }
+  .content-nav-bar { padding: 8px 10px; }
+  .content-nav-track { gap: 6px; }
+  .content-nav-track .content-nav-item { font-size: 12px; padding: 0 10px; }
   .floating-toc-panel .rare-rail-host { padding: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {

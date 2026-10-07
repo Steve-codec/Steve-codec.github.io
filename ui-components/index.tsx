@@ -1,26 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { GooeyNav } from './vendor/gooey-nav';
 import RailToc from './vendor/rail-toc';
 import ScrollProgress from './vendor/scroll-progress';
 
 function mountEnhancements() {
-  document.querySelectorAll<HTMLElement>('.content-nav-bar').forEach(bar => {
-    if (bar.dataset.enhanced) return;
-    const links = [...bar.querySelectorAll<HTMLAnchorElement>('a.content-nav-item')];
-    if (!links.length) return;
-    const items = links.map(link => ({
-      label: link.classList.contains('content-nav-home') ? '首页' : (link.querySelector('.nav-item-label')?.textContent || link.textContent || '').trim() + (link.querySelector('.nav-item-count') ? ` · ${link.querySelector('.nav-item-count')!.textContent}` : ''),
-      href: link.pathname.replace(/\/$/, '') || '/',
-    }));
-    const selected = Math.max(0, links.findIndex(link => link.classList.contains('active')));
-    const host = document.createElement('div');
-    host.className = 'rare-nav-host';
-    bar.replaceChildren(host);
-    bar.dataset.enhanced = 'true';
-    createRoot(host).render(<GooeyNav items={items} defaultValue={selected} size="sm" separation={8} radius={12} activeColor="var(--primary)" activeLabelColor="#052e24" aria-label="内容导航" />);
-  });
-
   const body = document.querySelector<HTMLElement>('#toc-body');
   const article = document.querySelector<HTMLElement>('.markdown-body');
   if (body && article && !body.dataset.enhanced) {

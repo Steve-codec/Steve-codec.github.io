@@ -6,15 +6,17 @@ var isArchive = is_archive();
 var isCategory = is_category();
 var isTag = is_tag();
 var postListDefault = theme.post_list_layout && theme.post_list_layout.default_mode || 'list';
+var selectedCategory = false;
 %>
-<div class="content-nav-bar card-base">
+<nav class="content-nav-bar card-base" aria-label="内容导航">
+  <div class="content-nav-track">
   <!-- Home button -->
-  <a href="<%= url_for('/') %>" class="content-nav-item content-nav-home<%= isHome ? ' active' : '' %>" aria-label="Home" title="<%= __('home') %>">
-    <span class="material-symbols-outlined">home</span>
+  <a href="<%= url_for('/') %>" class="content-nav-item content-nav-home<%= isHome ? ' active' : '' %>" <%- isHome ? 'aria-current="page"' : '' %>>
+    <span class="nav-item-label">首页</span>
   </a>
   
   <!-- Archive button -->
-  <a href="<%= url_for('/archives') %>" class="content-nav-item<%= (isArchive || page.layout === 'archive' || currentPath.indexOf('archives') === 0) ? ' active' : '' %>">
+  <a href="<%= url_for('/archives') %>" class="content-nav-item<%= (isArchive || page.layout === 'archive' || currentPath.indexOf('archives') === 0) ? ' active' : '' %>" <%- (isArchive || page.layout === 'archive' || currentPath.indexOf('archives') === 0) ? 'aria-current="page"' : '' %>>
     <span class="nav-item-label">归档</span>
     <span class="nav-item-count"><%= site.posts.length %></span>
   </a>
@@ -32,13 +34,14 @@ var postListDefault = theme.post_list_layout && theme.post_list_layout.default_m
       var isCurrentCat = false;
       if (isCategory && page.category === cat.name) {
         isCurrentCat = true;
-      } else if (isPost && page.categories && page.categories.length > 0) {
+      } else if (isPost && !selectedCategory && page.categories && page.categories.length > 0) {
         isCurrentCat = page.categories.some(function(postCat) {
           return postCat.name === cat.name;
         });
       }
+      if (isCurrentCat) selectedCategory = true;
   %>
-    <a href="<%= url_for(cat.path) %>" class="content-nav-item<%= isCurrentCat ? ' active' : '' %>">
+    <a href="<%= url_for(cat.path) %>" class="content-nav-item<%= isCurrentCat ? ' active' : '' %>" <%- isCurrentCat ? 'aria-current="page"' : '' %>>
       <span class="nav-item-label"><%= cat.name %></span>
       <span class="nav-item-count"><%= cat.posts.length %></span>
     </a>
@@ -48,8 +51,8 @@ var postListDefault = theme.post_list_layout && theme.post_list_layout.default_m
   %>
 
   <!-- More button -->
-  <a href="<%= url_for('/categories') %>" class="content-nav-item content-nav-more" style="margin-left: auto; background: oklch(0.65 0.18 var(--hue) / 0.15); color: var(--primary, #10b981); font-weight: 600;">
+  <a href="<%= url_for('/categories') %>" class="content-nav-item content-nav-more<%= page.layout === 'categories' ? ' active' : '' %>" <%- page.layout === 'categories' ? 'aria-current="page"' : '' %>>
     <span class="nav-item-label">更多</span>
-    <span class="material-symbols-outlined" style="font-size: 1rem;">chevron_right</span>
   </a>
-</div>
+  </div>
+</nav>
