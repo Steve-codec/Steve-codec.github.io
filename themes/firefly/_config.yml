@@ -23,7 +23,7 @@ nav:
     type: image
     value: /img/avatar.png
     alt: 博客头像
-  title: 我的博客
+  title: Time machine
   show_menu: true
   menu:
     - name: 首页
@@ -190,7 +190,7 @@ logo:
 #  首页文字 (对应模板中 theme.home_text.*，banner.ejs 读取)
 # ============================================================
 home_text:
-  title: 我的博客
+  title: Time machine
   subtitle:
     - 记录笔记与思考
     - 把一闪而过的想法，慢慢写下来
@@ -265,9 +265,9 @@ index:
 #  站点基本设置 (siteConfig.ts 其余部分)
 # ============================================================
 site:
-  title: 我的博客
+  title: Time machine
   subtitle: 记录笔记与思考
-  site_url: http://example.com
+  site_url: https://steve-codec.github.io
   description: 记录笔记与思考
   keywords:
     - Firefly
@@ -331,7 +331,7 @@ wallpaper:
   src:
     - desktop: /img/banner.jpg
       mobile: /img/banner.jpg
-      alt: 我的博客背景
+      alt: Time machine 背景
   dim_opacity: 0.45
   banner_switch_interval: 5000
   enable_carousel: false
@@ -342,7 +342,7 @@ wallpaper:
     home_text:
       enable: true
       switchable: true
-      title: 我的博客
+      title: Time machine
       title_size: 3.8rem
       subtitle:
         - 记录笔记与思考
@@ -598,7 +598,7 @@ search:
 # ============================================================
 announcement:
   title: 欢迎来到我的小屋
-  content: 完整功能预览已开启，内容会慢慢填满。
+  content: '🛖'
   icon: campaign
   type: info
   closable: true
@@ -660,4 +660,3 @@ mermaid:
 #  Fancybox 图片灯箱
 # ============================================================
 fancybox: true
-

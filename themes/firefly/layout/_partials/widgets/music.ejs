@@ -53,6 +53,11 @@
       return null;
     }
 
+    // Wait for APlayer, then bind each control bar only once. DOM updates from
+    // icons/notices must not reset the selected playback mode.
+    var player = getAPInstance();
+    if (!player) return;
+
     // Ensure cover image is circular
     var pic = ap.querySelector('.aplayer-pic');
     if (pic) pic.style.borderRadius = '50%';
@@ -84,6 +89,9 @@
       var body = ap.querySelector('.aplayer-body');
       if (body) body.appendChild(controls);
     }
+
+    if (controls.dataset.musicBound === 'true') return;
+    controls.dataset.musicBound = 'true';
 
     var playBtn = controls.querySelector('.music-btn-play');
 
@@ -151,52 +159,34 @@
       { key: 'single', title: '单曲循环', icon: 'repeat_one' },
       { key: 'random', title: '随机播放', icon: 'shuffle' }
     ];
-    var currentModeIndex = 0;
+    var currentModeIndex = player.options.loop === 'one' ? 1 : player.options.order === 'random' ? 2 : 0;
+
+    function updateModeButton(mode) {
+      var modeIcon = modeBtn.querySelector('.material-symbols-outlined');
+      if (modeIcon) modeIcon.textContent = mode.icon;
+      modeBtn.title = mode.title;
+      modeBtn.setAttribute('aria-label', mode.title);
+      modeBtn.dataset.mode = mode.key;
+      window.__FIREFLY_MUSIC_MODE = mode.key;
+    }
+    updateModeButton(modes[currentModeIndex]);
 
     modeBtn.onclick = function(e) {
       e.preventDefault();
       e.stopPropagation();
       currentModeIndex = (currentModeIndex + 1) % modes.length;
       var activeMode = modes[currentModeIndex];
-      window.__FIREFLY_MUSIC_MODE = activeMode.key;
-
-      var modeIcon = this.querySelector('.material-symbols-outlined');
-      if (modeIcon) modeIcon.textContent = activeMode.icon;
-      this.title = activeMode.title;
+      updateModeButton(activeMode);
 
       var apInst = getAPInstance();
-      if (apInst && apInst.notice) {
-        apInst.notice('播放模式: ' + activeMode.title);
+      if (apInst) {
+        // APlayer's own ended handler reads these options, so UI and playback
+        // use the same mode rather than competing audio event handlers.
+        apInst.options.loop = activeMode.key === 'single' ? 'one' : 'all';
+        apInst.options.order = activeMode.key === 'random' ? 'random' : 'list';
+        if (apInst.notice) apInst.notice('播放模式: ' + activeMode.title);
       }
     };
-
-    // Attach custom capture-phase ended listener on audio element to enforce mode
-    var audio = ap.querySelector('audio');
-    if (audio && !audio.dataset.customEndedBound) {
-      audio.dataset.customEndedBound = '1';
-      audio.addEventListener('ended', function(e) {
-        var mode = window.__FIREFLY_MUSIC_MODE || 'list';
-        var apInst = getAPInstance();
-        if (!apInst || !apInst.list) return;
-
-        var total = apInst.list.audios.length;
-        var current = apInst.list.index;
-
-        if (mode === 'single') {
-          e.stopPropagation();
-          audio.currentTime = 0;
-          audio.play();
-        } else if (mode === 'random') {
-          e.stopPropagation();
-          var nextIdx = Math.floor(Math.random() * total);
-          if (total > 1 && nextIdx === current) {
-            nextIdx = (current + 1) % total;
-          }
-          apInst.list.switch(nextIdx);
-          apInst.play();
-        }
-      }, true);
-    }
   }
 
   function initAll() {
