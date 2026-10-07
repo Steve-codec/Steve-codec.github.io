@@ -1,7 +1,7 @@
 (function() {
   const PostLayoutManager = {
     init() {
-      if (this.initialized) return;
+      if (this.initialized) { this.bindLayoutButtons(); this.syncButtonStates(); return; }
       this.initialized = true;
       // Mobile defaults to grid layout (no saved preference yet)
       if (window.innerWidth <= 768 && !localStorage.getItem('postListLayout')) {
@@ -24,6 +24,8 @@
     
     bindLayoutButtons() {
       document.querySelectorAll('.layout-buttons button[data-layout]').forEach(btn => {
+        if (btn.dataset.layoutBound) return;
+        btn.dataset.layoutBound = 'true';
         btn.addEventListener('click', () => {
           const layout = btn.dataset.layout;
           if (!layout) return;

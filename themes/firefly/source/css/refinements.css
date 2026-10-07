@@ -1,5 +1,6 @@
 /* Reading components from Rare UI and a stable, pre-rendered navigation. */
 body { font-family: 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif; }
+.comments-login-note { color: var(--text-tertiary); font-size: 12px; margin: 0 0 18px; }
 .content-nav-bar { display: block; min-width: 0; padding: 10px 14px; margin-bottom: 20px; border: 1px solid var(--line-divider); transition: none; }
 .content-nav-track { display: flex; align-items: center; gap: 8px; min-width: 0; overflow-x: auto; padding: 2px; scrollbar-width: none; }
 .content-nav-track::-webkit-scrollbar { display: none; }

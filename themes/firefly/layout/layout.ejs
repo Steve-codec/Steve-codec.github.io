@@ -5,7 +5,7 @@ const configHue = theme.theme_color.hue;
 const defaultMode = theme.theme_color.default_mode || 'system';
 %>
 <!DOCTYPE html>
-<html lang="<%= config.language %>" data-wallpaper-mode="banner" style="--bannerOffset: 15vh; --banner-height-home: 73vh; --banner-height: 67vh; --configHue: <%= configHue %>; --page-width: <%= PAGE_WIDTH %>rem;">
+<html lang="<%= config.language %>" data-wallpaper-mode="banner" data-asset-version="<%= theme.asset_version %>" data-blog-root="<%= url_for('/') %>" style="--bannerOffset: 15vh; --banner-height-home: 73vh; --banner-height: 67vh; --configHue: <%= configHue %>; --page-width: <%= PAGE_WIDTH %>rem;">
 <head>
   <script>
     (function() {
@@ -75,6 +75,7 @@ const defaultMode = theme.theme_color.default_mode || 'system';
   <%- partial('_partials/header/banner') %>
 
   <!-- Main Content Area with grid wrappers -->
+  <div id="persistent-music" hidden aria-hidden="true"></div>
   <div id="main-content-wrapper" class="absolute w-full z-30 pointer-events-none <%- is_home() ? '' : 'mobile-main-no-banner' %>">
     <div class="relative w-full xl:w-[92vw] max-w-[var(--page-width)] mx-auto pointer-events-auto">
       <%- body %>

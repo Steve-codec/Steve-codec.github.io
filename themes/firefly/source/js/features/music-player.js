@@ -27,6 +27,12 @@
       });
     },
 
+    getActivePlayer: function() {
+      var players = window.aplayers || [];
+      return players.find(function(ap) { return !ap.audio.paused; }) ||
+        players.find(function(ap) { return ap.container.offsetParent !== null; }) || players[0];
+    },
+
     waitForAPlayer: function() {
       var self = this;
 

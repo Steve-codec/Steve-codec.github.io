@@ -46,7 +46,14 @@ var pjaxEnable = themeConfig.pjax && themeConfig.pjax.enable !== false;
 
 <!-- Feature Scripts -->
 <% if (musicEnable || metingApi) { %>
+<script>
+  window.__LOCAL_PLAYLIST = <%- JSON.stringify(site.data.music && site.data.music.playlist || themeConfig.music.local && themeConfig.music.local.playlist || []).replace(/</g, '\\u003c') %>;
+</script>
 <script src="<%= url_for('/js/features/music-player.js') %>?v=<%= scriptVersion %>"></script>
+<script src="<%= url_for('/js/features/music-controls.js') %>?v=<%= scriptVersion %>"></script>
+<% } %>
+<% if (themeConfig.comments && themeConfig.comments.type === 'giscus') { %>
+<script src="<%= url_for('/js/features/comments.js') %>?v=<%= scriptVersion %>"></script>
 <% } %>
 <% if (page.encrypted === true || page.password) { %>
 <script src="<%= url_for('/js/features/encrypted-post.js') %>?v=<%= scriptVersion %>"></script>
@@ -652,34 +659,21 @@ var pjaxEnable = themeConfig.pjax && themeConfig.pjax.enable !== false;
 
 <!-- Site Stats Fallback & Running Days Calculation -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // 1. Site running days calculation (use theme site start date first)
-    var runningDaysEl = document.getElementById('site-running-days');
-    if (runningDaysEl) {
-      var startDateStr = '<%= (theme.site && theme.site.site_start_date) || (function() { var posts = site.posts.sort("date"); return posts.length > 0 ? posts.first().date.format("YYYY-MM-DD") : ""; })() %>';
-      if (startDateStr) {
-        var diff = Date.now() - new Date(startDateStr).getTime();
-        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        runningDaysEl.textContent = days > 0 ? days : 1;
-      }
-    }
+  window.refreshBlogStats = function() {
+    var startDateStr = '<%= (theme.site && theme.site.site_start_date) || "2026-09-25" %>';
+    document.querySelectorAll('[id="site-running-days"]').forEach(function(el) {
+      var days = Math.floor((Date.now() - new Date(startDateStr).getTime()) / 86400000);
+      el.textContent = Math.max(1, days);
+    });
+    document.querySelectorAll('[id="site-last-active"]').forEach(function(el) {
+      var value = el.getAttribute('data-latest-date');
+      if (!value) return;
+      var days = Math.floor((Date.now() - new Date(value).getTime()) / 86400000);
+      el.textContent = days <= 0 ? '<%= __("today") || "今天" %>' : days + ' <%= __("days") || "天" %><%= __("ago") || "前" %>';
+    });
+  };
+  document.addEventListener('DOMContentLoaded', window.refreshBlogStats);
 
-    // 1b. Last active calculation
-    var lastActiveEl = document.getElementById('site-last-active');
-    if (lastActiveEl) {
-      var latestDateStr = lastActiveEl.getAttribute('data-latest-date');
-      if (latestDateStr) {
-        var diffActive = Date.now() - new Date(latestDateStr).getTime();
-        var daysActive = Math.floor(diffActive / (1000 * 60 * 60 * 24));
-        if (daysActive <= 0) {
-          lastActiveEl.textContent = '<%= __("today") || "今天" %>';
-        } else {
-          lastActiveEl.textContent = daysActive + ' ' + '<%= __("days") || "天" %>' + '<%= __("ago") || "前" %>';
-        }
-      }
-    }
-
-  });
 </script>
 
 

@@ -87,6 +87,7 @@ var postUrlPrefix = url_for('/');
 
 <script>
 (function() {
+  if (window.initCalendar) { window.initCalendar(); return; }
   const monthNames = <%- JSON.stringify(monthNames) %>;
   const weekDays = <%- JSON.stringify(weekDays) %>;
   const yearText = <%- JSON.stringify(yearText) %>;
@@ -430,6 +431,7 @@ var postUrlPrefix = url_for('/');
     }
   }
   
+  window.initCalendar = initCalendar;
   // Set up initialization
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCalendar);

@@ -13,17 +13,16 @@
     
     // Re-selecting the current homepage should scroll up rather than reload it.
     bindHomeLinks() {
-      if (!document.body.classList.contains('is-home')) return;
-      document.querySelectorAll('#navbar a[href]').forEach(link => {
+      document.addEventListener('click', event => {
+        const link = event.target.closest('#navbar a[href]');
+        if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
         const target = new URL(link.href, window.location.href);
-        if (target.origin !== window.location.origin || target.pathname !== window.location.pathname || target.hash) return;
-        link.addEventListener('click', event => {
-          if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-          event.preventDefault();
-          this.closeMobileMenu();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      });
+        if (target.origin !== window.location.origin || target.pathname.replace(/\/$/, '') !== window.location.pathname.replace(/\/$/, '') || target.hash) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        this.closeMobileMenu();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, true);
     },
 
     bindScroll() {
@@ -189,8 +188,9 @@
       if (musicBtn) {
         musicBtn.addEventListener('click', (e) => {
           e.stopPropagation();
-          if (window.__aplayer) {
-            window.__aplayer.toggle();
+          var player = window.MusicPlayer && window.MusicPlayer.getActivePlayer();
+          if (player) {
+            player.toggle();
           } else {
             const widget = document.querySelector('.music-widget');
             if (widget) {

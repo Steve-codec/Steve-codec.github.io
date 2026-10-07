@@ -3,7 +3,7 @@
 #  从 Astro 版 Firefly 迁移至 Hexo
 #  本文件合并了原 Astro 项目中 28 个 TypeScript 配置文件的全部内容
 # ============================================================
-asset_version: '20261007-shelves1'
+asset_version: '20261007-continuous1'
 
 # ============================================================
 #  主题色彩设置 (对应模板中 theme.theme_color.*)
@@ -397,12 +397,12 @@ wallpaper:
 comments:
   type: giscus
   giscus:
-    repo: ''
-    repo_id: ''
+    repo: Steve-codec/Steve-codec.github.io
+    repo_id: R_kgDOU_Z3PQ
     category: Announcements
-    category_id: ''
+    category_id: DIC_kwDOU_Z3Pc4DHQjQ
     mapping: pathname
-    strict: '0'
+    strict: '1'
     reactions_enabled: '1'
     emit_metadata: '1'
     input_position: top
@@ -425,7 +425,7 @@ comments:
 #  PJAX 无刷新跳转 (保证切换页面时音乐连续播放)
 # ============================================================
 pjax:
-  enable: false
+  enable: true
 
 # ============================================================
 #  音乐播放器设置 (musicConfig.ts)

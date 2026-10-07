@@ -1,7 +1,15 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, type Root } from 'react-dom/client';
 import RailToc from './vendor/rail-toc';
 import ScrollProgress from './vendor/scroll-progress';
+
+const roots: Root[] = [];
+let progressHost: HTMLElement | null = null;
+function dispose() {
+  roots.splice(0).forEach(root => root.unmount());
+  progressHost?.remove();
+  progressHost = null;
+}
 
 function mountEnhancements() {
   const body = document.querySelector<HTMLElement>('#toc-body');
@@ -20,22 +28,29 @@ function mountEnhancements() {
       const host = document.createElement('div');
       host.className = 'rare-rail-host';
       body.replaceChildren(host);
-      createRoot(host).render(<RailToc items={items} title="阅读路线" offset={88} indent={12} className="rare-rail-toc" />);
+      const tocRoot = createRoot(host); roots.push(tocRoot);
+      tocRoot.render(<RailToc items={items} title="阅读路线" offset={88} indent={12} className="rare-rail-toc" />);
       const progress = document.createElement('div');
       progress.className = 'rare-progress-host';
       document.body.appendChild(progress);
+      progressHost = progress;
       const sections = items.filter(item => item.depth === 0).map(item => ({id:item.id, label:item.label.length > 18 ? item.label.slice(0,18) + '…' : item.label}));
-      createRoot(progress).render(<ScrollProgress sections={sections} offset={88} />);
+      const progressRoot = createRoot(progress); roots.push(progressRoot);
+      progressRoot.render(<ScrollProgress sections={sections} offset={88} />);
       const floating = document.querySelector<HTMLElement>('.floating-toc-panel');
       if (floating) {
         const mobileHost = document.createElement('div');
         mobileHost.className = 'rare-rail-host';
         floating.replaceChildren(mobileHost);
-        createRoot(mobileHost).render(<RailToc items={items} title="阅读路线" offset={88} indent={12} className="rare-rail-toc" />);
+        const floatingRoot = createRoot(mobileHost); roots.push(floatingRoot);
+        floatingRoot.render(<RailToc items={items} title="阅读路线" offset={88} indent={12} className="rare-rail-toc" />);
       }
     }
   }
 }
+
+(window as any).RareReading = {init: mountEnhancements, dispose};
+document.addEventListener('page:dispose', dispose);
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountEnhancements);
 else mountEnhancements();

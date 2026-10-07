@@ -1,127 +1,107 @@
 (function() {
-  function initPjax() {
-    if (typeof Pjax === 'undefined') {
-      console.warn('[PJAX] Pjax library is not loaded');
-      return;
-    }
+  var scripts = {};
+  function loadScript(path, globalName) {
+    if (window[globalName]) return Promise.resolve();
+    if (scripts[path]) return scripts[path];
+    var version = document.documentElement.dataset.assetVersion || '';
+    var root = document.documentElement.dataset.blogRoot || '/';
+    scripts[path] = new Promise(function(resolve, reject) {
+      var script = document.createElement('script');
+      script.src = root + path + '?v=' + encodeURIComponent(version);
+      script.onload = resolve;
+      script.onerror = function() { delete scripts[path]; script.remove(); reject(new Error('Could not load ' + path)); };
+      document.body.appendChild(script);
+    });
+    return scripts[path];
+  }
 
+  function switchGrid(oldGrid, newGrid) {
+    document.dispatchEvent(new CustomEvent('page:dispose'));
+    window.TOC?.observer?.disconnect();
+    var parking = document.getElementById('persistent-music');
+    oldGrid.querySelectorAll('.music-widget').forEach(function(widget) {
+      widget.dataset.musicSlot = widget.closest('.mobile-bottom-sidebar') ? 'mobile' : 'desktop';
+      parking.appendChild(widget);
+    });
+    newGrid.querySelectorAll('.music-widget').forEach(function(placeholder) {
+      var slot = placeholder.closest('.mobile-bottom-sidebar') ? 'mobile' : 'desktop';
+      var existing = parking.querySelector('[data-music-slot="' + slot + '"]');
+      if (existing) placeholder.replaceWith(existing);
+    });
+    // Preserve live visitor counters instead of replacing them with placeholders.
+    var footer = oldGrid.querySelector('.site-footer');
+    var nextFooter = newGrid.querySelector('.site-footer');
+    if (footer && nextFooter) nextFooter.replaceWith(footer);
+    var sourceHead = newGrid.ownerDocument.head;
+    var meta = 'meta[name="description"],meta[property^="og:"],meta[name^="twitter:"],link[rel="canonical"]';
+    document.head.querySelectorAll(meta).forEach(function(node) { node.remove(); });
+    sourceHead.querySelectorAll(meta).forEach(function(node) { document.head.appendChild(node.cloneNode(true)); });
+    oldGrid.replaceWith(newGrid);
+    this.onSwitch();
+  }
+
+  async function refreshPage() {
+    var main = document.getElementById('main-content');
+    if (main) main.removeAttribute('aria-busy');
+    document.body.classList.toggle('is-home', !!document.querySelector('#banner-overlay-container .home-text-overlay'));
+    window.ScrollManager?.closeMobileMenu();
+    window.initTypewriter?.();
+    window.TOC?.init();
+    window.PostLayoutManager?.init();
+    window.MusicPlayer?.initLocalPlaylist();
+    window.MusicControls?.init();
+    window.BlogComments?.init();
+    window.refreshBlogStats?.();
+    window.FancyboxManager?.init();
+    window.processCodeBlocks?.();
+    window.mermaid?.run?.();
+    var layout = window.Settings?.getPostListLayout() || 'list';
+    document.querySelectorAll('.post-list-container').forEach(function(node) { node.dataset.layout = layout; });
+    document.querySelectorAll('.post-list').forEach(function(node) { node.dataset.mode = layout; });
+    window.pjax?.refresh(document);
+    if (location.hash) {
+      var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      target?.scrollIntoView();
+    } else {
+      window.scrollTo({top:0,behavior:'instant'});
+    }
     try {
-      window.pjax = new Pjax({
-        selectors: [
-          'title',
-          '#banner-overlay-container',
-          '#navbar-menu',
-          '#main-content',
-          '.sidebar-right'
-        ],
-        elements: 'a[href]:not([target="_blank"]):not([href^="#"]):not([href^="javascript:"]):not([download]):not([data-fancybox])',
-        switches: {
-          '#banner-overlay-container': Pjax.switches.outerHTML,
-          '#main-content': Pjax.switches.outerHTML,
-          '#navbar-menu': Pjax.switches.outerHTML,
-          '.sidebar-right': Pjax.switches.outerHTML
-        },
-        cacheBust: false,
-        scrollTo: false
-      });
+      if (document.querySelector('.category-folder-visual')) {
+        await loadScript('js/ui/category-folders.js', 'CategoryFolders');
+        window.CategoryFolders?.init();
+      }
+      if (document.querySelector('#toc-body') && document.querySelector('.markdown-body')) {
+        await loadScript('js/ui/rare-components.js', 'RareReading');
+        window.RareReading?.init();
+      }
+      if (document.getElementById('encrypted-content')) {
+        await loadScript('js/features/encrypted-post.js', 'EncryptedPost');
+        window.EncryptedPost?.init();
+      }
+    } catch(error) { console.warn('[Navigation]', error.message); }
+  }
 
-      console.log('[Firefly Hexo] PJAX initialized successfully');
-    } catch (err) {
-      console.error('[Firefly Hexo] PJAX init error:', err);
-    }
-
+  function init() {
+    if (typeof Pjax === 'undefined') return;
+    window.pjax = new Pjax({
+      selectors:['title','#banner-overlay-container','#navbar-menu','#main-grid'],
+      elements:'a[href]:not([target="_blank"]):not([href^="#"]):not([href^="javascript:"]):not([download]):not([data-fancybox]):not([data-no-pjax]):not([href$=".xml"]):not([href$=".mp3"]):not([href$=".pdf"])',
+      switches:{
+        '#banner-overlay-container':Pjax.switches.outerHTML,
+        '#navbar-menu':Pjax.switches.outerHTML,
+        '#main-grid':switchGrid
+      },
+      cacheBust:false,
+      currentUrlFullReload:false,
+      scrollTo:false,
+      timeout:10000,
+      analytics:false
+    });
     document.addEventListener('pjax:send', function() {
-      var mainContent = document.getElementById('main-content');
-      if (mainContent) {
-        mainContent.style.opacity = '0.4';
-        mainContent.style.transition = 'opacity 0.15s ease';
-      }
+      document.getElementById('main-content')?.setAttribute('aria-busy', 'true');
     });
-
-    document.addEventListener('pjax:complete', function() {
-      var mainContent = document.getElementById('main-content');
-      if (mainContent) {
-        mainContent.style.opacity = '1';
-      }
-
-      // Update body class (is-home)
-      var isHomeNew = !!document.querySelector('#banner-overlay-container .home-text-overlay');
-      if (isHomeNew) {
-        document.body.classList.add('is-home');
-      } else {
-        document.body.classList.remove('is-home');
-      }
-
-      // Re-initialize Typewriter effect
-      if (typeof window.initTypewriter === 'function') {
-        window.initTypewriter();
-      }
-
-      // Re-initialize UI & post components
-      if (window.TOC && typeof window.TOC.init === 'function') {
-        window.TOC.init();
-      }
-      if (window.PostLayoutManager && typeof window.PostLayoutManager.init === 'function') {
-        window.PostLayoutManager.init();
-      }
-      if (window.ScrollManager && typeof window.ScrollManager.init === 'function') {
-        window.ScrollManager.init();
-      }
-
-      // Re-initialize calendar widget
-      if (typeof window.initCalendar === 'function') {
-        window.initCalendar();
-      }
-
-      // Process code blocks
-      if (typeof window.processCodeBlocks === 'function') {
-        setTimeout(window.processCodeBlocks, 50);
-      }
-
-      // Fancybox lightbox re-binding
-      if (window.FancyboxManager && typeof window.FancyboxManager.init === 'function') {
-        window.FancyboxManager.init();
-      } else if (window.Fancybox && typeof window.Fancybox.bind === 'function') {
-        try {
-          window.Fancybox.unbind('[data-fancybox]');
-          window.Fancybox.bind('[data-fancybox]', {});
-        } catch (e) {}
-      }
-
-      // KaTeX / MathJax re-render
-      if (typeof window.renderMathInElement === 'function') {
-        window.renderMathInElement(document.body, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false },
-            { left: '\\[', right: '\\]', display: true },
-            { left: '\\(', right: '\\)', display: false }
-          ]
-        });
-      } else if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
-        window.MathJax.typesetPromise();
-      }
-
-      // Mermaid re-render
-      if (window.mermaid && typeof window.mermaid.run === 'function') {
-        window.mermaid.run();
-      }
-
-      // Scroll position handling
-      if (location.hash) {
-        var target = document.querySelector(location.hash);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
+    document.addEventListener('pjax:complete', refreshPage);
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPjax);
-  } else {
-    initPjax();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();

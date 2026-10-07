@@ -18,6 +18,7 @@
       this.charIndex = 0;
       this.isDeleting = false;
       this.timer = null;
+      this.timers = [];
 
       if (this.texts.length > 0) this.start();
     }
@@ -68,22 +69,27 @@
       const segments = [...segmenter.segment(text)];
 
       segments.forEach((seg, i) => {
-        setTimeout(() => {
+        this.timers.push(setTimeout(() => {
           this.el.textContent = text.substring(0, seg.index + seg.segment.length);
-        }, i * this.speed);
+        }, i * this.speed));
       });
     }
 
     destroy() {
       if (this.timer) clearTimeout(this.timer);
+      this.timers.forEach(clearTimeout);
     }
   }
 
   function init() {
     document.querySelectorAll('.typewriter').forEach(el => {
-      new TypewriterEffect(el);
+      if (!el.typewriterEffect) el.typewriterEffect = new TypewriterEffect(el);
     });
   }
+
+  document.addEventListener('pjax:send', () => {
+    document.querySelectorAll('.typewriter').forEach(el => el.typewriterEffect?.destroy());
+  });
 
   window.TypewriterEffect = TypewriterEffect;
   window.initTypewriter = init;

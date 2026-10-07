@@ -93,3 +93,12 @@
 - archive.ejs 使用 page.posts，修正归档分页重复和年份筛选无效；分类总页查询父分类改用 findOne，防止加入子分类后生成空页面。
 - search.js 转义结果标题、摘要与链接，高亮文字保持原样。
 - checks/content-expansion.cjs 在独立临时博客检查多文章、分页、子分类、搜索、统计与空博客；详见 EXTENSIBILITY-REVIEW.md。
+
+## 连续播放与评论（2026-10-07）
+
+- PJAX 只替换横幅文字、导航菜单和 main-grid，播放器 DOM 与 APlayer 实例保留；没有侧栏时停放至隐藏容器，回来后移回原位置。顶部音乐按钮控制正在播放的实例。
+- 音乐控制提取到单次加载的 music-controls.js，保留模式、按钮事件及播放进度。
+- 换页卸载 React 目录/文件夹和打字定时器；按需加载新页面的组件，重新初始化目录、布局、日历、代码块和统计文字。
+- Giscus 对接博客仓库的 Announcements；评论只在导航 URL 更新后初始化，按 pathname 匹配。comments.js 使用官方 widget 协议与一个 message 监听器，校验来源及 iframe，避免每次导航增加 client.js 监听器。未安装应用时显示待配置提示。
+- 评论登录使用 Giscus 的标准回调与本地会话；未保存密码或 GitHub 访问令牌。应用安装和真实留言仍需用户完成。
+- 回归检查：checks/music-controls.cjs；浏览器确认站内跳转与返回保留播放状态，目录和分类组件重新挂载。

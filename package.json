@@ -9,7 +9,8 @@
     "server": "hexo server --ip 127.0.0.1",
     "preview": "hexo server --draft --ip 127.0.0.1",
     "build:ui": "node ui-components/build.cjs",
-    "check:content": "node checks/content-expansion.cjs && node checks/content-expansion.cjs --empty"
+    "check:content": "node checks/content-expansion.cjs && node checks/content-expansion.cjs --empty",
+    "check:player": "node checks/music-controls.cjs && node checks/comments.cjs"
   },
   "hexo": {
     "version": "8.1.2"
