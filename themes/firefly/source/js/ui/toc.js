@@ -4,6 +4,10 @@
     tocLinks: [],
     
     init() {
+      if (document.querySelector('#toc-body')?.dataset.enhanced === 'true') {
+        this.bindFloatingButton();
+        return;
+      }
       this.headings = [];
       this.tocLinks = [];
       if (this.observer) {
@@ -78,6 +82,7 @@
           }
         });
       }, { rootMargin: '-80px 0px -80% 0px' });
+      this.observer = observer;
       
       this.headings.forEach(h => observer.observe(h));
     },
@@ -86,6 +91,8 @@
       const btn = document.querySelector('.floating-toc-btn');
       const panel = document.querySelector('.floating-toc-panel');
       if (!btn || !panel) return;
+      if (btn.dataset.tocBound === 'true') return;
+      btn.dataset.tocBound = 'true';
       
       btn.addEventListener('click', () => {
         panel.classList.toggle('hidden');

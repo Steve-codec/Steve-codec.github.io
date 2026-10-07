@@ -75,6 +75,12 @@ avatar: /img/avatar.png
 
 ## 本地预览与发布
 
+### 界面组件与音乐反馈
+
+内容导航、文章目录和手机阅读进度使用 Rare UI 的组件，来源说明在 `ui-components/README.md`，页脚保留来源链接。日常写文章不需要改这些组件。整体间距、卡片和播放器样式集中在 `themes/firefly/source/css/refinements.css`；修改组件源码后运行 `pnpm run build:ui`，正常发布构建也会自动执行。
+
+音乐仍编辑 `source/_data/music.yml`；播放后按钮变为暂停，等待音频时显示缓冲提示。未点击播放前不会自动播放。音乐文件和封面位置保持不变。
+
 ### 手动调整头像裁切
 
 原图保存在 `source/img/avatar.png`，无需修改原图。在 `themes/firefly/_config.yml` 的 `profile` 中调整：

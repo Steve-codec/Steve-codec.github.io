@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
+    "build": "node ui-components/build.cjs && hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server --ip 127.0.0.1",
-    "preview": "hexo server --draft --ip 127.0.0.1"
+    "preview": "hexo server --draft --ip 127.0.0.1",
+    "build:ui": "node ui-components/build.cjs"
   },
   "hexo": {
     "version": "8.1.2"
@@ -32,6 +33,14 @@
     "hexo-wordcount": "^6.0.1",
     "katex": "^0.18.0",
     "marked-katex-extension": "^5.1.13",
-    "moment": "^2.31.0"
+    "moment": "^2.31.0",
+    "motion": "^14.0.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "esbuild": "^0.28.2",
+    "tailwindcss": "^4.3.3"
   }
 }

@@ -18,7 +18,7 @@
       document.querySelectorAll('.aplayer-local').forEach(function(container) {
         if (container.aplayer) return;
         var ap = new window.APlayer({container:container, audio:window.__LOCAL_PLAYLIST,
-          autoplay:false, preload:'none', volume:0.7, listFolded:true,
+          autoplay:false, preload:'metadata', volume:0.7, listFolded:true,
           lrcType:window.__LOCAL_PLAYLIST.some(function(track) {return !!track.lrc;}) ? 3 : 0});
         container.aplayer = ap;
         window.aplayers = window.aplayers || [];

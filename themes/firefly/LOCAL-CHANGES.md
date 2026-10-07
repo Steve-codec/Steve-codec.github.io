@@ -77,3 +77,12 @@
 - 首屏脚本在样式之前固定 banner，并迁移已保存的旧壁纸模式；body 从生成时就包含 enable-banner，Settings 也只接受 banner，避免加载后再改变模式。
 - 已在首页时，重复点击导航首页或站点名称只滚动回顶部；修饰键点击仍保留浏览器的原生行为。
 - 本地脚本和样式共用 asset_version，避免旧脚本恢复已移除的模式。
+
+## Rare UI 与音乐反馈（2026-10-07）
+
+- 直接接入 Rare UI 的 Gooey Nav、Rail TOC、Scroll Progress React 组件，使用正常链接兼容 Hexo，保留来源与完整许可证，页脚显示 Rare UI 链接。
+- ui-components/build.cjs 打包本地脚本和不含全局重置的 Tailwind 工具样式；pnpm run build 先构建组件再生成 Hexo 页面。
+- 内容导航采用弹性分段选中效果；桌面目录使用轨道与纸飞机，手机显示阅读进度及可展开章节菜单。目录继续隐藏章/节编号。
+- toc.js 避免重复初始化覆盖 React 目录，并允许卸载原先的目录观察器；没有加载增强脚本时仍使用原目录。
+- refinements.css 调整文章卡片、侧栏和播放器的间距、字体与轻微交互反馈，保留静态背景及用户的主题色偏好。
+- 音乐控制监听真实 play/pause/waiting/playing 等事件，同步图标、名称和加载状态；预读取音频元数据，不自动播放。歌单通过 APlayer 原生 show/hide 打开与关闭。
