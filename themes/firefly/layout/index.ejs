@@ -42,7 +42,6 @@ var postListDefault = theme.post_list_layout && theme.post_list_layout.default_m
     data-layout="<%= postListDefault %>"
     aria-label="<%= __('post_list') %>"
   >
-    <%- partial('_partials/post/content-nav') %>
     <!-- Category navigation bar at top (if enabled) -->
     <% if (theme.category_bar && theme.category_bar.enable && !page.hide) { %>
     <div class="category-bar-container">

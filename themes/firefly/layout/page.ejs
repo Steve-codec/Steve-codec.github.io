@@ -14,7 +14,6 @@ var friendsConfig = theme.friends || theme.links || {};
 
 <div id="main-grid" class="main-grid-layout has-no-sidebar">
   <main id="main-content" class="page-container full-width">
-    <%- partial('_partials/post/content-nav') %>
     <article class="page-content<%= (pageType === 'friends' || pageType === 'links') ? ' friends-page' : '' %>">
       <!-- ===== About Page ===== -->
       <% if (pageType === 'about') { %>

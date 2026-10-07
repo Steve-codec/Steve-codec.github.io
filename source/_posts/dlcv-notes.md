@@ -5,8 +5,8 @@ updated: 2026-10-07
 slug: dlcv-notes
 categories:
   - 学习笔记
-  - 计算机视觉
 tags:
+  - 计算机视觉
   - 深度学习
   - CNN
   - ResNet

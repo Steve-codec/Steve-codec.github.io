@@ -76,6 +76,10 @@ cover: /img/cover.jpg
 
 封面图片放进 `source/img/`，未填写时使用笔记插画。分类、标签、归档、搜索索引会在生成时更新。旧文章已移出博客，目前已发布 DLCV 学习笔记，文件为 `source/_posts/dlcv-notes.md`；配图与封面在 `source/img/posts/dlcv/`。公式使用本地 KaTeX 渲染，写法见这篇文章；关于页介绍为“遇见有趣的人和事”。
 
+“学习笔记”是当前分类，“计算机视觉”是标签。Hexo 会把 `categories` 下按顺序排列的多个名称当作父子分类；想表示文章的多个主题，请放在 `tags` 中。分类总页会显示所有有效分类，并使用 Rare UI 文件夹展示文章；点击文件夹展开，再点击文章标题阅读。顶部主导航保留，正文前的分类快捷栏已移除。
+
+代码写在 Markdown 的三反引号代码块里，在开头注明 `python`、`js`、`bash` 等语言即可。代码块负责展示，不是博客原稿编辑器。在线修改文章可以进入 GitHub 仓库的 `source/_posts/`，编辑 Markdown 并提交到 `main`，GitHub Actions 会重新生成和发布网站。
+
 ## 本地预览
 
 ```powershell

@@ -31,7 +31,6 @@ var postListDefault = theme.post_list_layout && theme.post_list_layout.default_m
 
   <!-- ===== Main Content ===== -->
   <main id="main-content" class="post-list-container tag-container" data-layout="<%= postListDefault %>">
-    <%- partial('_partials/post/content-nav') %>
 
     <div class="post-list" data-mode="<%= postListDefault %>">
       <% if (page.posts && page.posts.length > 0) { %>

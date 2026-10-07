@@ -59,6 +59,28 @@ body { font-family: 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif; }
 .footer-design-credit { font-size: 11px; opacity: .7; margin-top: 8px; }
 .footer-design-credit a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line-divider); }
 
+/* A fixed animation stage keeps folder opening out of the page layout. */
+.category-folders-grid { grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); }
+.category-folder-card { min-width: 0; padding: 22px; border: 1px solid var(--line-divider); overflow: hidden; }
+.category-folder-header { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.category-folder-eyebrow { margin: 0 0 5px; font-size: 11px; letter-spacing: .08em; color: var(--text-tertiary); }
+.category-folder-header h2 { margin: 0; font-size: 20px; line-height: 1.4; }
+.category-folder-header h2 a { color: var(--text-primary); text-decoration: none; }
+.category-folder-count { flex: 0 0 auto; border-radius: 9px; padding: 5px 9px; font-size: 11px; background: var(--btn-regular-bg); color: var(--text-secondary); }
+.category-folder-visual { height: 280px; display: flex; justify-content: center; align-items: flex-end; position: relative; }
+.category-folder-visual [data-slot="folder"] { align-items: flex-end; }
+.category-folder-visual [role="button"] { outline: none; }
+.category-folder-visual [role="button"]:focus-visible { outline: 2px solid var(--primary); outline-offset: 8px; border-radius: 16px; }
+.category-folder-visual svg { display: block; max-width: none; }
+.category-folder-fallback { font-size: 180px; color: #50b1fd; }
+.category-folder-hint { margin: 12px 0; text-align: center; font-size: 11px; color: var(--text-tertiary); }
+.category-folder-posts { height: 140px; overflow-y: auto; scrollbar-width: thin; border-top: 1px solid var(--line-divider); }
+.category-folder-card[data-open="false"] .category-folder-posts { visibility: hidden; pointer-events: none; }
+.category-folder-post { display: grid; grid-template-columns: minmax(0, 1fr) 16px; gap: 5px 8px; padding: 14px 2px; color: var(--text-primary); text-decoration: none; font-size: 13px; line-height: 1.6; }
+.category-folder-post-date { grid-column: 1 / -1; font-size: 10px; color: var(--text-tertiary); font-variant-numeric: tabular-nums; letter-spacing: .05em; }
+.category-folder-post:hover { color: var(--primary); }
+.category-folder-browse { display: flex; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-divider); color: var(--primary); font-size: 12px; text-decoration: none; }
+
 @media (max-width: 768px) {
   .rare-progress-host { display: block; }
   .rare-progress-host [data-slot="scroll-progress"] { z-index: 55; bottom: 22px; }

@@ -65,6 +65,9 @@ var pjaxEnable = themeConfig.pjax && themeConfig.pjax.enable !== false;
 <% } %>
 
 <!-- ==================== CDN Dependencies ==================== -->
+<% if (page.layout === 'categories') { %>
+<script defer src="<%= url_for('/js/ui/category-folders.js') %>?v=<%= scriptVersion %>"></script>
+<% } %>
 
 <!-- Highlight.js - Code Syntax Highlighting -->
 <% if (codeHighlight) { %>

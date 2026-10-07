@@ -5,9 +5,9 @@ const esbuild = require('esbuild');
 const root = path.join(__dirname, '..');
 const output = path.join(root, 'themes/firefly/source');
 fs.mkdirSync(path.join(output, 'js/ui'), { recursive: true });
-esbuild.buildSync({
-  entryPoints: [path.join(root, 'ui-components/index.tsx')],
-  outfile: path.join(output, 'js/ui/rare-components.js'),
+for (const [entry, filename] of [['index.tsx', 'rare-components.js'], ['categories.tsx', 'category-folders.js']]) esbuild.buildSync({
+  entryPoints: [path.join(root, 'ui-components', entry)],
+  outfile: path.join(output, 'js/ui', filename),
   bundle: true, minify: true, sourcemap: false, format: 'iife', target: ['es2020'],
   jsx: 'automatic', define: {'process.env.NODE_ENV': '"production"'},
   alias: {'next/link':path.join(root,'ui-components/compat.tsx'),'next/navigation':path.join(root,'ui-components/compat.tsx'),'@/lib/utils':path.join(root,'ui-components/compat.tsx')},
