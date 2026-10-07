@@ -59,7 +59,7 @@
 <link rel="preload" href="<%= url_for('/fonts/Quicksand-Bold.woff2') %>" as="font" type="font/woff2" crossorigin>
 
 <!-- CSS -->
-<% var cssVersion = theme.version || '2026061801'; %>
+<% var cssVersion = theme.asset_version || theme.version || '2026061801'; %>
 <link rel="stylesheet" href="<%= url_for('/css/main.css') %>?v=<%= cssVersion %>">
 <link rel="stylesheet" href="<%= url_for('/css/layout.css') %>?v=<%= cssVersion %>">
 <link rel="stylesheet" href="<%= url_for('/css/navbar.css') %>?v=<%= cssVersion %>">
@@ -80,6 +80,13 @@
 <link rel="stylesheet" href="<%= url_for('/css/dynamic.css') %>?v=<%= cssVersion %>">
 <link rel="stylesheet" href="<%= url_for('/css/water-waves.css') %>?v=<%= cssVersion %>">
 <link rel="stylesheet" href="<%= url_for('/css/responsive.css') %>?v=<%= cssVersion %>">
+<link rel="stylesheet" href="<%= url_for('/css/branding.css') %>?v=<%= cssVersion %>">
+<style>
+  :root {
+    --avatar-position: <%= (theme.profile || {}).avatar_position || '50% 50%' %>;
+    --avatar-zoom: <%= Math.min(2, Math.max(1, Number((theme.profile || {}).avatar_zoom) || 1)) %>;
+  }
+</style>
 <% if (theme.iconfont) { %>
 <link rel="stylesheet" href="<%= theme.iconfont %>">
 <% } %>

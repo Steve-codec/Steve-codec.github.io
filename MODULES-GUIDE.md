@@ -75,6 +75,21 @@ avatar: /img/avatar.png
 
 ## 本地预览与发布
 
+### 手动调整头像裁切
+
+原图保存在 `source/img/avatar.png`，无需修改原图。在 `themes/firefly/_config.yml` 的 `profile` 中调整：
+
+```yaml
+  avatar_position: '50% 15%'
+  avatar_zoom: 1.15
+```
+
+第一个百分比控制横向焦点，第二个控制纵向焦点；纵向越小，越能保留图片上方。人物偏下时可从 `15%` 继续减小。`avatar_zoom` 控制放大倍数，`1` 不额外放大，`1.15` 轻微放大，最大 `2`。导航头像和个人资料头像共用这些设置。调整后重启本地预览，满意后提交并推送即可更新线上。
+
+### 刷新旧页面
+
+GitHub Pages 和浏览器会缓存页面，首页与子页面的缓存更新时间可能不同。已发布新版本但仍显示旧名称时，按 `Ctrl + F5` 强制刷新。主题配置 `asset_version` 是样式文件的缓存版本；修改样式后更新此值再发布。
+
 ```powershell
 cd D:\Blog\hexo-blog
 pnpm run preview

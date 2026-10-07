@@ -63,3 +63,10 @@
 - 音乐按钮增加一次性绑定标记，避免 MutationObserver 在图标或提示更新后重置循环模式。
 - 循环按钮同时更新 APlayer 的 loop/order 配置，移除重复的自定义 ended 处理；列表循环、单曲循环、随机播放可以反复切换。
 - 站点名称统一为 Time machine，公告正文改为 🛖。
+
+## 导航名称与头像裁切（2026-10-07）
+
+- navigation.ejs 为头像增加裁切容器，branding.css 补齐链接横向布局，避免名称显示在头像下方。
+- 导航和首页使用 Georgia 衬线字体，导航保持单行名称，窄屏保留名称并调整按钮占用空间。
+- profile.avatar_position 与 profile.avatar_zoom 控制导航、个人资料头像的裁切焦点与放大；动态头像共用焦点位置。
+- 样式在 responsive.css 之后加载，并更新 theme.asset_version 避免浏览器继续使用旧样式；不修改主题本身的版本号。

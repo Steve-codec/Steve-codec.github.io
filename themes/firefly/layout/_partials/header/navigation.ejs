@@ -22,7 +22,9 @@ var logoIcon = theme.logo ? theme.logo.icon : null;
         <% if (logoIcon) { %>
         <span class="navbar-logo-icon"><%= logoIcon %></span>
         <% } else if (logoUrl) { %>
-        <img src="<%= url_for(logoUrl) %>" alt="<%= siteTitle %>" class="navbar-logo-img" width="32" height="32">
+        <span class="navbar-logo-frame" aria-hidden="true">
+          <img src="<%= url_for(logoUrl) %>" alt="" class="navbar-logo-img" width="44" height="44">
+        </span>
         <% } %>
         <span class="navbar-title"><%= siteTitle %></span>
       </a>
