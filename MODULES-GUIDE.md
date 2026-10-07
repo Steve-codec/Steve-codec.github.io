@@ -63,7 +63,7 @@ avatar: /img/avatar.png
 
 社交链接编辑 `themes/firefly/_config.yml` 的 social，填写你自己的个人主页，不必编辑其他页面。
 
-评论使用 Giscus，已连接 `Steve-codec/Steve-codec.github.io`，仓库 Discussions 已开启，分类为 Announcements。仓库 ID 与分类 ID 已填入主题配置。还需要仓库拥有者完成一次应用安装：
+评论使用 Giscus，已连接 `Steve-codec/Steve-codec.github.io`，仓库 Discussions 已开启，分类为 Announcements。仓库 ID 与分类 ID 已填入主题配置，Giscus 应用已安装，线上文章已验证显示评论输入区与 GitHub 登录入口。以下安装步骤仅供以后重新安装或更换仓库时参考：
 
 1. 登录 GitHub，打开 https://github.com/apps/giscus ，点击 Install。
 2. 选择 Only select repositories，仅勾选 `Steve-codec.github.io`，完成安装。

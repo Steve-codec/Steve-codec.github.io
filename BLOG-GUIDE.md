@@ -15,7 +15,7 @@
 
 按照 Firefly 项目建议，直接编辑 `themes/firefly/_config.yml`。不要同时添加根目录 `_config.firefly.yml` 或 `theme_config`，否则数组合并可能留下演示菜单、社交链接或背景图。
 
-当前已开启社交链接、音乐、评论入口、纯文字动态、相册、追番和访客统计，也保留静态背景横幅、波浪、打字效果、图文卡片、明暗切换、主题色选择、本地搜索和正文目录。已加入 Vagrant Poet，站内跳转会保留音乐进度；Giscus 已填好博客仓库和讨论分类，完成应用安装后可留言。GitHub 已连接 Steve-codec，Bilibili 个人空间待填写。看板娘与赞助已关闭。各模块的素材位置、数据格式和配置步骤见 [MODULES-GUIDE.md](MODULES-GUIDE.md)。
+当前已开启社交链接、音乐、评论、纯文字动态、相册、追番和访客统计，也保留静态背景横幅、波浪、打字效果、图文卡片、明暗切换、主题色选择、本地搜索和正文目录。已加入 Vagrant Poet，站内跳转会保留音乐进度；Giscus 已安装并连接博客仓库，登录 GitHub 后可留言。GitHub 已连接 Steve-codec，Bilibili 个人空间待填写。看板娘与赞助已关闭。各模块的素材位置、数据格式和配置步骤见 [MODULES-GUIDE.md](MODULES-GUIDE.md)。
 
 ## 首页短句和图片
 
