@@ -87,24 +87,22 @@ pnpm run preview
 
 ## 发布到 GitHub Pages
 
-1. 创建公开仓库 `你的用户名.github.io`。
-2. 把根目录 `_config.yml` 的 `url` 改为 `https://你的用户名.github.io`，填写作者与网站名称。
-3. 在博客目录运行：
+博客网址：https://steve-codec.github.io/ 。仓库：https://github.com/Steve-codec/Steve-codec.github.io 。本地 origin 已连接该仓库，Pages 已选择 GitHub Actions。
+
+以后修改文章、动态、图片或配置后，在博客目录运行：
 
 ```powershell
+cd D:\Blog\hexo-blog
 git add .
-git commit -m "Configure my blog"
-git remote add origin https://github.com/你的用户名/你的用户名.github.io.git
-git push -u origin main
+git commit -m "Update blog"
+git push
 ```
 
-已有 origin 时先用 `git remote -v` 查看，不要重复添加。
+推送到 main 后，`.github/workflows/pages.yml` 会自动安装依赖、构建并发布；仅在本地保存不会更新公网。可以在仓库 Actions 查看本次发布是否成功。正式构建不发布草稿，source/_dynamics 中的动态会随正式网站发布。
 
-4. 仓库 Settings → Pages → Build and deployment 选择 **GitHub Actions**。
+构建环境固定使用 Asia/Shanghai 时区，避免线上文章网址与本地日期相差一天。主题源码包含在 themes/firefly 中，会一起上传。
 
-已有 `.github/workflows/pages.yml`，推送到 main 后自动构建发布。以后写文章、换图片、修改配置，再执行 `git add .`、`git commit -m "Update blog"`、`git push`；只在本地保存不会发布。
-
-主题源码包含在 `themes/firefly/`，没有嵌套 Git 仓库，上传整个博客时会一起上传，Actions 可以完整构建。正式构建和自动部署不发布草稿。
+运行时长从主题配置 `site.site_start_date` 开始计算，目前为 2026-09-25，表示建站至今经过的天数，与电脑或预览终端是否运行无关。
 
 ## 主题版本与更新
 
@@ -115,5 +113,6 @@ git push -u origin main
 ## 完整模块预览（2026-10-07）
 
 旧演示文章和草稿已经移到 `D:\Blog\backups\before-full-preview-20261007-171748`，功能预览草稿已由正式的 DLCV 学习笔记替换；该草稿保存在 `D:\Blog\backups\before-personal-media-20261007\firefly-preview.md`。原始笔记和图片保留在 `D:\Blog\materials\DLCV-20261007`。相册、追番与动态提供预览内容，后续按 [MODULES-GUIDE.md](MODULES-GUIDE.md) 替换即可。
+
 
 

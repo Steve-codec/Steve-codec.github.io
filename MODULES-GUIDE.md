@@ -84,8 +84,9 @@ pnpm run preview
 
 配置修改后停止并重新启动预览；音乐或图片上传后刷新。浏览器会保存配色、明暗和壁纸偏好；背景被隐藏时，打开“显示设置 → 壁纸 → 横幅模式”。当前使用普通页面跳转，切换页面会中断本地播放。
 
-正式发布前填写根目录 `_config.yml` 的 url 与作者，并换掉预览图片和动态。现有 GitHub Actions 流程仍可使用；推送 main 后自动构建。正式构建不包含文章草稿，没有正式文章时仍能生成首页、归档与 RSS。
+正式网址已填写为 https://steve-codec.github.io，作者为 Hugh；相册、追番和动态的预览内容可继续按需替换。GitHub Actions 已连接，推送 main 后自动构建发布。正式构建不包含文章草稿，没有正式文章时仍能生成首页、归档与 RSS。
 
-这是对完整功能的预览，不会自动上传 GitHub。详细建站与发布步骤见 BLOG-GUIDE.md，主题本地调整见 themes/firefly/LOCAL-CHANGES.md。
+网站已上线；本地保存不会自动上传，提交并推送至 GitHub 后才会更新公网。详细建站与发布步骤见 BLOG-GUIDE.md，主题本地调整见 themes/firefly/LOCAL-CHANGES.md。
+
 
 
