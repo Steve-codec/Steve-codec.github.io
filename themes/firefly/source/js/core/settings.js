@@ -148,92 +148,30 @@
     // WALLPAPER MODE MANAGEMENT
     // ============================================================
 
-    /**
-     * Retrieve the stored wallpaper mode from localStorage.
-     * Returns null if nothing has been saved yet.
-     */
+    // Keep compatibility with existing callers while accepting only banner mode.
     getWallpaperMode: function() {
-      return localStorage.getItem(this.KEYS.wallpaperMode) || this.WALLPAPER_BANNER;
+      return this.WALLPAPER_BANNER;
     },
 
-    /**
-     * Persist and apply a wallpaper mode.
-     */
-    setWallpaperMode: function(mode) {
-      var validModes = [this.WALLPAPER_BANNER, this.WALLPAPER_FULLSCREEN, this.WALLPAPER_OVERLAY, this.WALLPAPER_NONE];
-      var actualMode = validModes.indexOf(mode) !== -1 ? mode : this.WALLPAPER_BANNER;
-      localStorage.setItem(this.KEYS.wallpaperMode, actualMode);
-      this.applyWallpaperMode(actualMode);
-      document.dispatchEvent(new CustomEvent('wallpaperchange', { detail: { mode: actualMode } }));
+    setWallpaperMode: function() {
+      localStorage.setItem(this.KEYS.wallpaperMode, this.WALLPAPER_BANNER);
+      this.applyWallpaperMode();
+      document.dispatchEvent(new CustomEvent('wallpaperchange', { detail: { mode: this.WALLPAPER_BANNER } }));
     },
 
-    /**
-     * Apply a wallpaper mode to the DOM immediately (without saving).
-     * This is called both from setWallpaperMode and during page load
-     * to restore the previously-saved mode.
-     */
-    applyWallpaperMode: function(mode) {
-      var actualMode = mode || this.getWallpaperMode();
-      document.documentElement.setAttribute('data-wallpaper-mode', actualMode);
-      var body = document.body;
+    applyWallpaperMode: function() {
+      document.documentElement.setAttribute('data-wallpaper-mode', this.WALLPAPER_BANNER);
+      document.body.classList.add('enable-banner');
+      document.body.classList.remove('no-banner-layout', 'wallpaper-transparent');
       var wrapper = document.getElementById('wallpaper-wrapper');
-      var mainContentWrapper = document.querySelector('#main-content-wrapper');
-      var overlayContainer = document.getElementById('banner-overlay-container');
-
-      // Reset all classes
-      body.classList.remove('enable-banner', 'no-banner-layout', 'wallpaper-transparent');
       if (wrapper) {
         wrapper.classList.remove('wallpaper-overlay', 'wallpaper-fullscreen');
+        wrapper.style.display = 'block';
       }
-      if (mainContentWrapper) {
-        mainContentWrapper.classList.remove('mobile-main-no-banner');
-      }
-
-      switch (actualMode) {
-        case this.WALLPAPER_BANNER:
-          body.classList.add('enable-banner');
-          if (wrapper) wrapper.style.display = 'block';
-          if (overlayContainer) overlayContainer.style.display = '';
-          if (mainContentWrapper) mainContentWrapper.style.removeProperty('top');
-          break;
-
-        case this.WALLPAPER_FULLSCREEN:
-          body.classList.add('enable-banner');
-          if (wrapper) {
-            wrapper.style.display = 'block';
-            wrapper.classList.add('wallpaper-fullscreen');
-          }
-          if (overlayContainer) overlayContainer.style.display = '';
-          if (mainContentWrapper) mainContentWrapper.style.removeProperty('top');
-          break;
-
-        case this.WALLPAPER_OVERLAY:
-          body.classList.add('wallpaper-transparent');
-          if (wrapper) {
-            wrapper.style.display = 'block';
-            wrapper.classList.add('wallpaper-overlay');
-          }
-          if (overlayContainer) overlayContainer.style.display = 'none';
-          if (mainContentWrapper) {
-            mainContentWrapper.style.setProperty('top', '5.5rem', 'important');
-            mainContentWrapper.style.position = '';
-          }
-          break;
-
-        case this.WALLPAPER_NONE:
-          body.classList.add('no-banner-layout');
-          if (wrapper) wrapper.style.display = 'none';
-          if (overlayContainer) overlayContainer.style.display = 'none';
-          if (mainContentWrapper) {
-            mainContentWrapper.style.setProperty('top', '5.5rem', 'important');
-            mainContentWrapper.style.position = '';
-          }
-          break;
-      }
-
-      if (mainContentWrapper) {
-        mainContentWrapper.style.visibility = 'visible';
-      }
+      var content = document.querySelector('#main-content-wrapper');
+      if (content) content.style.removeProperty('top');
+      var overlay = document.getElementById('banner-overlay-container');
+      if (overlay) overlay.style.display = '';
     },
 
     // ============================================================

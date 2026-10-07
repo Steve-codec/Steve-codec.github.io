@@ -8,8 +8,24 @@
       this.bindScroll();
       this.initBackToTop();
       this.initMobileMenu();
+      this.bindHomeLinks();
     },
     
+    // Re-selecting the current homepage should scroll up rather than reload it.
+    bindHomeLinks() {
+      if (!document.body.classList.contains('is-home')) return;
+      document.querySelectorAll('#navbar a[href]').forEach(link => {
+        const target = new URL(link.href, window.location.href);
+        if (target.origin !== window.location.origin || target.pathname !== window.location.pathname || target.hash) return;
+        link.addEventListener('click', event => {
+          if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+          this.closeMobileMenu();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    },
+
     bindScroll() {
       let ticking = false;
       window.addEventListener('scroll', () => {
@@ -184,19 +200,6 @@
         });
       }
 
-      const playBtn = document.getElementById('nav-play-btn');
-      if (playBtn) {
-        playBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (window.Settings) {
-            const current = window.Settings.getWallpaperMode();
-            const order = ['banner', 'fullscreen', 'overlay', 'none'];
-            const idx = order.indexOf(current);
-            const next = order[(idx + 1) % order.length];
-            window.Settings.setWallpaperMode(next);
-          }
-        });
-      }
     },
     
     // Back to top

@@ -1,5 +1,6 @@
 <%
 var themeConfig = theme;
+var scriptVersion = themeConfig.asset_version || themeConfig.version || '2026061801';
 var codeHighlight = themeConfig.code && themeConfig.code.highlight;
 var mathEngine = themeConfig.math && themeConfig.math.engine;
 var mermaidEnable = themeConfig.mermaid && themeConfig.mermaid.enable;
@@ -17,48 +18,48 @@ var pjaxEnable = themeConfig.pjax && themeConfig.pjax.enable !== false;
 %>
 
 <!-- Core Scripts -->
-<script src="<%= url_for('/js/core/theme.js') %>"></script>
-<script src="<%= url_for('/js/core/wallpaper.js') %>"></script>
-<script src="<%= url_for('/js/core/settings.js') %>"></script>
-<script src="<%= url_for('/js/core/icons.js') %>"></script>
+<script src="<%= url_for('/js/core/theme.js') %>?v=<%= scriptVersion %>"></script>
+<script src="<%= url_for('/js/core/wallpaper.js') %>?v=<%= scriptVersion %>"></script>
+<script src="<%= url_for('/js/core/settings.js') %>?v=<%= scriptVersion %>"></script>
+<script src="<%= url_for('/js/core/icons.js') %>?v=<%= scriptVersion %>"></script>
 
 <!-- Effect Scripts -->
-<script src="<%= url_for('/js/effects/typewriter.js') %>"></script>
+<script src="<%= url_for('/js/effects/typewriter.js') %>?v=<%= scriptVersion %>"></script>
 <% if (themeConfig.effects && themeConfig.effects.sakura && themeConfig.effects.sakura.enable !== false) { %>
-<script src="<%= url_for('/js/effects/sakura.js') %>"></script>
+<script src="<%= url_for('/js/effects/sakura.js') %>?v=<%= scriptVersion %>"></script>
 <% } %>
 <% if (themeConfig.wallpaper && themeConfig.wallpaper.mode === 'banner' && themeConfig.wallpaper.enable_carousel !== false) { %>
-<script src="<%= url_for('/js/effects/banner-carousel.js') %>"></script>
+<script src="<%= url_for('/js/effects/banner-carousel.js') %>?v=<%= scriptVersion %>"></script>
 <% } %>
-<script src="<%= url_for('/js/effects/water-waves.js') %>"></script>
+<script src="<%= url_for('/js/effects/water-waves.js') %>?v=<%= scriptVersion %>"></script>
 
 <!-- UI Scripts -->
-<script src="<%= url_for('/js/ui/display-settings.js') %>"></script>
+<script src="<%= url_for('/js/ui/display-settings.js') %>?v=<%= scriptVersion %>"></script>
 <script>
   window.__SEARCH_PATH__ = '<%= url_for(themeConfig.search && themeConfig.search.path || "/search.xml") %>';
 </script>
-<script src="<%= url_for('/js/ui/search.js') %>"></script>
-<script src="<%= url_for('/js/ui/toc.js') %>"></script>
-<script src="<%= url_for('/js/ui/scroll.js') %>"></script>
-<script src="<%= url_for('/js/ui/back-to-top.js') %>"></script>
-<script src="<%= url_for('/js/ui/post-layout.js') %>"></script>
+<script src="<%= url_for('/js/ui/search.js') %>?v=<%= scriptVersion %>"></script>
+<script src="<%= url_for('/js/ui/toc.js') %>?v=<%= scriptVersion %>"></script>
+<script src="<%= url_for('/js/ui/scroll.js') %>?v=<%= scriptVersion %>"></script>
+<script src="<%= url_for('/js/ui/back-to-top.js') %>?v=<%= scriptVersion %>"></script>
+<script src="<%= url_for('/js/ui/post-layout.js') %>?v=<%= scriptVersion %>"></script>
 
 <!-- Feature Scripts -->
 <% if (musicEnable || metingApi) { %>
-<script src="<%= url_for('/js/features/music-player.js') %>"></script>
+<script src="<%= url_for('/js/features/music-player.js') %>?v=<%= scriptVersion %>"></script>
 <% } %>
 <% if (page.encrypted === true || page.password) { %>
-<script src="<%= url_for('/js/features/encrypted-post.js') %>"></script>
+<script src="<%= url_for('/js/features/encrypted-post.js') %>?v=<%= scriptVersion %>"></script>
 <% } %>
 <% if (fancyboxEnable) { %>
-<script src="<%= url_for('/js/features/fancybox.js') %>"></script>
+<script src="<%= url_for('/js/features/fancybox.js') %>?v=<%= scriptVersion %>"></script>
 <% } %>
 <% if (themeConfig.image_optimization && themeConfig.image_optimization.no_referrer_domains && themeConfig.image_optimization.no_referrer_domains.length > 0) { %>
-<script src="<%= url_for('/js/features/no-referrer.js') %>"></script>
+<script src="<%= url_for('/js/features/no-referrer.js') %>?v=<%= scriptVersion %>"></script>
 <% } %>
 
 <!-- Boot Script -->
-<script src="<%= url_for('/js/boot.js') %>"></script>
+<script src="<%= url_for('/js/boot.js') %>?v=<%= scriptVersion %>"></script>
 
 <!-- ==================== CDN Dependencies ==================== -->
 
@@ -227,7 +228,7 @@ var pjaxEnable = themeConfig.pjax && themeConfig.pjax.enable !== false;
 <!-- PJAX - Seamless Page Navigation -->
 <% if (pjaxEnable) { %>
 <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
-<script src="<%= url_for('/js/features/pjax.js') %>"></script>
+<script src="<%= url_for('/js/features/pjax.js') %>?v=<%= scriptVersion %>"></script>
 <% } %>
 
 <!-- Busuanzi - Visitor Counter -->

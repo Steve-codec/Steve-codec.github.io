@@ -58,33 +58,9 @@
     <!-- Wallpaper Mode Section -->
     <div class="settings-section">
       <div class="settings-section-title"><%= __('wallpaper_mode') %></div>
-      <div class="wallpaper-mode-buttons">
-        <button data-wallpaper="banner" class="active"><%= __('banner') %></button>
-        <button data-wallpaper="fullscreen"><%= __('fullscreen') %></button>
-        <button data-wallpaper="overlay"><%= __('overlay') %></button>
-        <button data-wallpaper="none"><%= __('none') %></button>
-      </div>
+      <p class="settings-fixed-mode"><%= __('banner') %></p>
     </div>
 
-    <!-- Transparency Section (shown only in overlay mode) -->
-    <div class="settings-section transparency-section">
-      <div class="settings-section-title"><%= __('transparency') || 'Transparency' %></div>
-      <div class="settings-label">
-        <span><%= __('wallpaper_opacity') || 'Wallpaper Opacity' %></span>
-        <span class="range-value" id="val-wallpaper-opacity">80%</span>
-      </div>
-      <input type="range" id="slider-wallpaper-opacity" min="10" max="100" value="80" step="5" class="rounded-range">
-      <div class="settings-label">
-        <span><%= __('background_blur') || 'Background Blur' %></span>
-        <span class="range-value" id="val-background-blur">10px</span>
-      </div>
-      <input type="range" id="slider-background-blur" min="0" max="30" value="10" step="1" class="rounded-range">
-      <div class="settings-label">
-        <span><%= __('card_transparency') || 'Card Transparency' %></span>
-        <span class="range-value" id="val-card-transparency">50%</span>
-      </div>
-      <input type="range" id="slider-card-transparency" min="10" max="100" value="50" step="5" class="rounded-range">
-    </div>
   </div>
 
   <!-- Tab Content: Effects -->

@@ -3,24 +3,15 @@ const BANNER_HEIGHT_EXTEND = 6;
 const PAGE_WIDTH = theme.page_width || 100;
 const configHue = theme.theme_color.hue;
 const defaultMode = theme.theme_color.default_mode || 'system';
-const defaultWallpaperMode = theme.wallpaper.mode;
-const wallSwitchable = theme.wallpaper.switchable !== false;
-const cardTransparentOpacity = theme.wallpaper.overlay && theme.wallpaper.overlay.card_opacity ? theme.wallpaper.overlay.card_opacity : 0.6;
 %>
 <!DOCTYPE html>
-<html lang="<%= config.language %>" data-wallpaper-mode="<%= theme.wallpaper.mode %>" style="--bannerOffset: 15vh; --banner-height-home: 73vh; --banner-height: 67vh; --configHue: <%= configHue %>; --page-width: <%= PAGE_WIDTH %>rem;">
+<html lang="<%= config.language %>" data-wallpaper-mode="banner" style="--bannerOffset: 15vh; --banner-height-home: 73vh; --banner-height: 67vh; --configHue: <%= configHue %>; --page-width: <%= PAGE_WIDTH %>rem;">
 <head>
-  <%- partial('_partials/head') %>
-</head>
-<body class="min-h-screen <%- is_home() ? 'is-home' : '' %> <%- theme.nav && theme.nav.sticky !== false ? 'sticky-navbar' : '' %> <%- theme.cards && theme.cards.border !== false ? 'enable-card-border' : '' %> <%- theme.cards && theme.cards.follow_theme_hue ? 'card-follow-theme-hue' : '' %>" style="--bannerOffset: 15vh; --banner-height-home: 73vh; --banner-height: 67vh; --configHue: <%= configHue %>; --page-width: <%= PAGE_WIDTH %>rem;">
   <script>
     (function() {
       var BANNER_HEIGHT_EXTEND = <%- BANNER_HEIGHT_EXTEND %>;
       var configHue = <%- configHue %>;
       var defaultMode = '<%- defaultMode %>';
-      var defaultWallpaperMode = '<%- defaultWallpaperMode %>';
-      var wallSwitchable = <%- wallSwitchable %>;
-      var cardTransparentOpacity = <%- cardTransparentOpacity %>;
 
       // 1. Set theme
       var storedTheme = localStorage.getItem('theme');
@@ -40,11 +31,11 @@ const cardTransparentOpacity = theme.wallpaper.overlay && theme.wallpaper.overla
       var hueToApply = storedHue !== null ? storedHue : configHue;
       document.documentElement.style.setProperty('--hue', hueToApply);
 
-      // 3. Set wallpaper mode from localStorage or default
-      var storedWallpaper = localStorage.getItem('wallpaperMode');
-      var validModes = ['banner', 'fullscreen', 'overlay', 'none'];
-      var wallpaperModeToApply = validModes.indexOf(storedWallpaper) !== -1 ? storedWallpaper : 'banner';
-      document.documentElement.setAttribute('data-wallpaper-mode', wallpaperModeToApply);
+      // Banner mode is fixed before the first paint, including for old saved preferences.
+      document.documentElement.setAttribute('data-wallpaper-mode', 'banner');
+      if (localStorage.getItem('wallpaperMode') !== null) {
+        localStorage.setItem('wallpaperMode', 'banner');
+      }
 
       // 4. Calculate --banner-height-extend
       var vh = window.innerHeight;
@@ -52,52 +43,6 @@ const cardTransparentOpacity = theme.wallpaper.overlay && theme.wallpaper.overla
       var bannerHeightExtend = extend > vh ? Math.floor(vh / 4) * 4 : extend;
       if (bannerHeightExtend === 0) bannerHeightExtend = 4;
       document.documentElement.style.setProperty('--banner-height-extend', bannerHeightExtend + 'px');
-
-      // 5. Apply wallpaper positioning immediately
-      (function applyPos() {
-        var body = document.body;
-        var wrapper = document.getElementById('wallpaper-wrapper');
-        var mainContentWrapper = document.getElementById('main-content-wrapper');
-        var overlayContainer = document.getElementById('banner-overlay-container');
-
-        body.classList.remove('enable-banner', 'no-banner-layout', 'wallpaper-transparent');
-        if (wrapper) wrapper.classList.remove('wallpaper-overlay', 'wallpaper-fullscreen');
-        if (mainContentWrapper) mainContentWrapper.classList.remove('mobile-main-no-banner');
-
-        switch (wallpaperModeToApply) {
-          case 'banner':
-            body.classList.add('enable-banner');
-            if (wrapper) wrapper.style.display = 'block';
-            if (overlayContainer) overlayContainer.style.display = '';
-            if (mainContentWrapper) mainContentWrapper.style.removeProperty('top');
-            break;
-          case 'fullscreen':
-            body.classList.add('enable-banner');
-            if (wrapper) { wrapper.style.display = 'block'; wrapper.classList.add('wallpaper-fullscreen'); }
-            if (overlayContainer) overlayContainer.style.display = '';
-            if (mainContentWrapper) mainContentWrapper.style.removeProperty('top');
-            break;
-          case 'overlay':
-            body.classList.add('wallpaper-transparent');
-            if (wrapper) { wrapper.style.display = 'block'; wrapper.classList.add('wallpaper-overlay'); }
-            if (overlayContainer) overlayContainer.style.display = 'none';
-            if (mainContentWrapper) {
-              mainContentWrapper.style.setProperty('top', '5.5rem', 'important');
-              mainContentWrapper.style.position = '';
-            }
-            break;
-          case 'none':
-            body.classList.add('no-banner-layout');
-            if (wrapper) wrapper.style.display = 'none';
-            if (overlayContainer) overlayContainer.style.display = 'none';
-            if (mainContentWrapper) {
-              mainContentWrapper.style.setProperty('top', '5.5rem', 'important');
-              mainContentWrapper.style.position = '';
-            }
-            break;
-        }
-        if (mainContentWrapper) mainContentWrapper.style.visibility = 'visible';
-      })();
 
       // 7. Set additional data attributes from localStorage
       if (localStorage.getItem('wavesEnabled') !== null) {
@@ -114,6 +59,10 @@ const cardTransparentOpacity = theme.wallpaper.overlay && theme.wallpaper.overla
       }
     })();
   </script>
+  <%- partial('_partials/head') %>
+</head>
+<body class="min-h-screen enable-banner <%- is_home() ? 'is-home' : '' %> <%- theme.nav && theme.nav.sticky !== false ? 'sticky-navbar' : '' %> <%- theme.cards && theme.cards.border !== false ? 'enable-card-border' : '' %> <%- theme.cards && theme.cards.follow_theme_hue ? 'card-follow-theme-hue' : '' %>" style="--bannerOffset: 15vh; --banner-height-home: 73vh; --banner-height: 67vh; --configHue: <%= configHue %>; --page-width: <%= PAGE_WIDTH %>rem;">
+
 
   <!-- Navbar -->
   <div id="top-row" class="z-50 pointer-events-none relative mx-auto w-full xl:w-[92vw] max-w-[var(--page-width)] px-3 md:px-4">
