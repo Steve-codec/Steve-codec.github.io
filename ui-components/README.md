@@ -18,3 +18,5 @@ Run `pnpm run build:ui` to rebuild the assets. `pnpm run build` includes that st
 Rail TOC enhances the sidebar while the original TOC remains the fallback before loading. Scroll Progress supplies the mobile article menu. Full page navigation remains enabled. Gooey Nav was removed from the entry point: replacing pre-rendered links with React and animating their spacing introduced a visible layout change on every page load. The content navigation now renders directly in Hexo with fixed-size pills and color-only hover feedback. The original downloaded Gooey Nav source is retained for reference, but is not shipped in the JavaScript bundle.
 
 The Hexo filter in `scripts/image-dimensions.js` reserves intrinsic dimensions for local article images. This prevents newly loaded figures from moving a selected section after a TOC jump.
+
+The React reading bundle loads only on article pages. Home, archive, and category navigation works without loading or parsing it.

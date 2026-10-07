@@ -60,7 +60,9 @@ var pjaxEnable = themeConfig.pjax && themeConfig.pjax.enable !== false;
 
 <!-- Boot Script -->
 <script src="<%= url_for('/js/boot.js') %>?v=<%= scriptVersion %>"></script>
+<% if (is_post()) { %>
 <script defer src="<%= url_for('/js/ui/rare-components.js') %>?v=<%= scriptVersion %>"></script>
+<% } %>
 
 <!-- ==================== CDN Dependencies ==================== -->
 
