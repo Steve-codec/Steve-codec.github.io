@@ -212,8 +212,6 @@ const FolderComponent = ({
             <div
               className="absolute inset-0"
               style={{
-                backdropFilter: "blur(6px)",
-                WebkitBackdropFilter: "blur(6px)",
                 clipPath: `path('${FLAP_PATH}')`,
                 WebkitClipPath: `path('${FLAP_PATH}')`,
                 transform: "translateZ(0)",

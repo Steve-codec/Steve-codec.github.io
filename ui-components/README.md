@@ -23,3 +23,5 @@ The Hexo filter in `scripts/image-dimensions.js` reserves intrinsic dimensions f
 The React reading bundle loads only on article pages. Home, archive, and category navigation works without loading or parsing it.
 
 The category index loads a separate `category-folders.js` bundle. Hexo renders category names, article links, and counts before JavaScript runs. The Folder component's animations stay inside a fixed stage; opening reveals those article links. Local adaptations add keyboard operation, reduced-motion support, persistent open state, a callback, and unique SVG filter IDs. The duplicated content navigation is removed from page templates; the main header navigation remains.
+
+The translucent flap retains its SVG fill, but its backdrop blur is disabled to avoid edge smearing in the browser's 3D compositor.
