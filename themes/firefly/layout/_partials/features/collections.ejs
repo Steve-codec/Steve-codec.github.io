@@ -1,0 +1,53 @@
+<header class="collection-header">
+  <span class="collection-eyebrow"><%= pageType === 'gallery' ? 'MOMENTS & MEMORIES' : pageType === 'bangumi' ? 'STORIES TO KEEP' : 'THANK YOU FOR BEING HERE' %></span>
+  <h1><%= page.title %></h1>
+  <div class="markdown-body"><%- page.content %></div>
+</header>
+<% if (pageType === 'gallery') { %>
+  <% var albums = (site.data.gallery && site.data.gallery.albums) || (theme.gallery && theme.gallery.albums) || []; %>
+  <% albums.forEach(function(album, albumIndex) { %>
+    <section class="collection-section">
+      <h2><%= album.title || '相册' %></h2>
+      <% if (album.description) { %><p class="collection-caption"><%= album.description %></p><% } %>
+      <div class="photo-grid">
+        <% (album.images || []).forEach(function(photo) { %>
+          <figure class="photo-card">
+            <a href="<%= url_for(photo.src) %>" data-fancybox="album-<%= albumIndex %>" data-caption="<%= photo.caption || '' %>">
+              <img src="<%= url_for(photo.src) %>" alt="<%= photo.caption || album.title || '照片' %>" loading="lazy">
+            </a>
+            <% if (photo.caption) { %><figcaption><%= photo.caption %></figcaption><% } %>
+          </figure>
+        <% }); %>
+      </div>
+    </section>
+  <% }); %>
+<% } else if (pageType === 'bangumi') { %>
+  <% var entries = (site.data.bangumi && site.data.bangumi.items) || []; %>
+  <% var groups = [{key:'watching', label:'在看', icon:'play_circle'}, {key:'planned', label:'想看', icon:'bookmark'}, {key:'completed', label:'看过', icon:'check_circle'}]; %>
+  <% groups.forEach(function(group) { var items = entries.filter(function(item) {return item.status === group.key;}); %>
+    <section class="collection-section">
+      <h2 class="collection-group-title"><span class="material-symbols-outlined"><%= group.icon %></span><%= group.label %><small><%= items.length %></small></h2>
+      <div class="story-grid">
+        <% items.forEach(function(item) { %>
+          <article class="story-card card-base">
+            <img src="<%= url_for(item.cover || '/img/cover.avif') %>" alt="<%= item.title %>" loading="lazy">
+            <div class="story-info"><span class="story-status"><%= group.label %></span><h3><%= item.title %></h3><p><%= item.description || '' %></p><span class="story-progress"><%= item.progress || '' %></span></div>
+          </article>
+        <% }); %>
+      </div>
+    </section>
+  <% }); %>
+<% } else if (pageType === 'sponsor') { %>
+  <% var sponsorData = site.data.sponsor || theme.sponsor || {}; var methods = sponsorData.methods || []; %>
+  <div class="support-grid">
+    <% if (methods.length) { methods.forEach(function(method) { %>
+      <section class="support-card card-base"><h2><%= method.name %></h2><img class="support-qr" src="<%= url_for(method.qrcode) %>" alt="<%= method.name %>收款码"><p>谢谢你的支持</p></section>
+    <% }); } else { ['微信', '支付宝'].forEach(function(name) { %>
+      <section class="support-card card-base"><h2><%= name %></h2><div class="support-qr-placeholder"><span class="material-symbols-outlined">qr_code_2</span><span>待添加收款码</span></div><p>收款码上传后将在这里展示</p></section>
+    <% }); } %>
+  </div>
+  <section class="collection-section supporter-section"><h2>感谢支持</h2>
+    <% if ((sponsorData.sponsors || []).length) { %><div class="supporter-list"><% sponsorData.sponsors.forEach(function(person) { %><span class="story-status"><%= typeof person === 'string' ? person : person.name %></span><% }); %></div>
+    <% } else { %><p class="collection-caption">每一次阅读、分享与留言，都是这间小屋继续生长的动力。</p><% } %>
+  </section>
+<% } %>

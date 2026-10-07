@@ -7,13 +7,13 @@ title: 我的博客
 subtitle: 记录笔记与思考
 description: 记录笔记与思考
 keywords:
-author: 博主
+author: Hugh
 language: zh-CN
-timezone: ''
+timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://steve-codec.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -96,16 +96,21 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: butterfly
+theme: firefly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
 
-# 为 Butterfly 的本地搜索生成索引。部署时会自动产出 public/search.json。
+# Firefly 使用 XML 格式的本地搜索索引。
 search:
-  path: search.json
+  path: local-search.xml
   field: post
   content: true
   format: striptags
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20

@@ -1,0 +1,8 @@
+- name: Hexo
+  url: https://hexo.io/zh-cn/
+  avatar: /img/firefly.png
+  description: 博客框架 · 建站资源
+- name: Firefly
+  url: https://github.com/LKDenchin/hexo-theme-firefly
+  avatar: /img/avatar.avif
+  description: 当前主题 · 建站资源

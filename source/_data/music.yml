@@ -1,0 +1,13 @@
+# 音乐放入 source/music/，封面放入 source/img/music/。
+# 取消示例的注释并替换文件名即可添加曲目。
+playlist:
+  - name: Vagrant Poet
+    artist: 洛仃洋
+    url: /music/vagrant-poet.mp3
+    cover: /img/music/vagrant-poet.jpg
+# playlist:
+#   - name: 我的音乐
+#     artist: 歌手名
+#     url: /music/song.mp3
+#     cover: /img/music/cover.jpg
+#     lrc: /music/song.lrc

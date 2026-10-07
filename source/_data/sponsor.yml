@@ -1,0 +1,8 @@
+# 收款码放入 source/img/sponsor/，再在此填写路径。
+methods: []
+# methods:
+#   - name: 微信
+#     qrcode: /img/sponsor/wechat.png
+#   - name: 支付宝
+#     qrcode: /img/sponsor/alipay.png
+sponsors: []

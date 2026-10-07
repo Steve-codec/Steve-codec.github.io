@@ -1,0 +1,17 @@
+# 预览卡片，后续替换为实际追番内容。封面放入 source/img/bangumi/。
+items:
+  - title: 正在追的故事 · 预览
+    cover: /img/DesktopWallpaper/d2.avif
+    status: watching
+    progress: 3 / 12
+    description: 在这里记录每一集的心情。
+  - title: 想看的作品 · 预览
+    cover: /img/DesktopWallpaper/d4.avif
+    status: planned
+    progress: 尚未开始
+    description: 留一份等待开启的故事清单。
+  - title: 看完之后 · 预览
+    cover: /img/DesktopWallpaper/d6.avif
+    status: completed
+    progress: 已看完
+    description: 保存那些仍然记得的片段。

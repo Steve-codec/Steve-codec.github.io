@@ -1,0 +1,17 @@
+# 先使用主题自带壁纸展示排版，后续换成 source/img/gallery/ 中的照片。
+albums:
+  - title: 光影收藏 · 预览
+    description: 主题自带图片，用于预览相册。
+    images:
+      - src: /img/DesktopWallpaper/d1.avif
+        caption: 片刻风景
+      - src: /img/DesktopWallpaper/d2.avif
+        caption: 流动的光
+      - src: /img/DesktopWallpaper/d3.avif
+        caption: 梦里的颜色
+      - src: /img/DesktopWallpaper/d4.avif
+        caption: 温柔时刻
+      - src: /img/DesktopWallpaper/d5.avif
+        caption: 遥远的天空
+      - src: /img/DesktopWallpaper/d6.avif
+        caption: 日常切片
