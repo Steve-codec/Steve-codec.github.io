@@ -7,16 +7,15 @@ document.querySelectorAll<HTMLElement>('.category-folder-visual').forEach(host =
   if (!card || host.dataset.enhanced) return;
   const label = host.dataset.label || '分类';
   const list = card.querySelector<HTMLElement>('.category-folder-posts');
+  const extraPosts = card.querySelectorAll<HTMLElement>('.category-folder-post-extra');
   const hint = card.querySelector<HTMLElement>('.category-folder-hint');
   if (!list) return;
   host.dataset.enhanced = 'true';
   card.dataset.open = 'false';
-  list.inert = true;
-  list.setAttribute('aria-hidden', 'true');
-  createRoot(host).render(<Folder color="blue" size="sm" label={`打开“${label}”文件夹`} onOpenChange={open => {
+  extraPosts.forEach(post => { post.inert = true; post.hidden = true; });
+  createRoot(host).render(<Folder color="blue" size="xs" label={`展开或收起“${label}”最近文章`} onOpenChange={open => {
     card.dataset.open = String(open);
-    list.inert = !open;
-    list.setAttribute('aria-hidden', String(!open));
-    if (hint) hint.textContent = open ? '选择一篇文章，开始阅读' : '点击文件夹，翻开这份收藏';
+    extraPosts.forEach(post => { post.inert = !open; post.hidden = !open; });
+    if (hint) hint.textContent = extraPosts.length ? (open ? '再次点击收起' : '点击展开最近文章') : '这份收藏，慢慢积累';
   }} />);
 });

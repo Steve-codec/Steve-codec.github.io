@@ -23,7 +23,7 @@
 
 ```yaml
 home_text:
-  title: 我的博客
+  title: Time machine
   subtitle:
     - 记录笔记与思考
     - 把一闪而过的想法，慢慢写下来
@@ -76,7 +76,41 @@ cover: /img/cover.jpg
 
 封面图片放进 `source/img/`，未填写时使用笔记插画。分类、标签、归档、搜索索引会在生成时更新。旧文章已移出博客，目前已发布 DLCV 学习笔记，文件为 `source/_posts/dlcv-notes.md`；配图与封面在 `source/img/posts/dlcv/`。公式使用本地 KaTeX 渲染，写法见这篇文章；关于页介绍为“遇见有趣的人和事”。
 
-“学习笔记”是当前分类，“计算机视觉”是标签。Hexo 会把 `categories` 下按顺序排列的多个名称当作父子分类；想表示文章的多个主题，请放在 `tags` 中。分类总页会显示所有有效分类，并使用 Rare UI 文件夹展示文章；点击文件夹展开，再点击文章标题阅读。顶部主导航保留，正文前的分类快捷栏已移除。
+“学习笔记”是当前分类，“计算机视觉”是标签。分类总页使用小型横向文件夹卡片，默认显示最新一篇，点击文件夹展开最近三篇；点击分类名或“查看全部文章”进入完整列表。顶部主导航保留，正文前的分类快捷栏已移除。
+
+### 自动归类和新分类
+
+新文章开头的 `categories` 和 `tags` 决定它属于哪里。新建文章模板已经默认填入“学习笔记”；需要其他分类时直接替换名称。比如创建“随想”分类：
+
+```yaml
+categories:
+  - 随想
+tags:
+  - 生活
+  - 阅读
+```
+
+不需要新建分类文件夹或分类页面。首次发布使用这个名称的文章后，Hexo 会生成“随想”的页面，分类总页和侧栏也会更新；后面的文章使用同样的名称就会归入已有分类。分类名要保持一致，“随想”和“日常随想”是两个分类。
+
+如果需要父子分类，例如“学习笔记 → 计算机视觉”：
+
+```yaml
+categories:
+  - 学习笔记
+  - 计算机视觉
+```
+
+上面的两个名称有上下级关系，不是两个并列分类。多个主题通常放进 `tags`；如果确实需要多个并列分类，写成独立的列表：
+
+```yaml
+categories:
+  - [学习笔记]
+  - [随想]
+```
+
+未填写分类时，Hexo 使用 `_config.yml` 中的 `default_category`。没有文章的分类不会显示。详细规则见 [Hexo 官方 Front-matter 文档](https://hexo.io/docs/front-matter)。
+
+保存本地文章只会更新本地预览。按下面的发布步骤推送到 GitHub 后，Actions 才会更新公网首页、分类、标签、归档、搜索、日历、订阅和文章统计。每篇文章只会进入你填写的分类，不会自动进入全部分类。
 
 代码写在 Markdown 的三反引号代码块里，在开头注明 `python`、`js`、`bash` 等语言即可。代码块负责展示，不是博客原稿编辑器。在线修改文章可以进入 GitHub 仓库的 `source/_posts/`，编辑 Markdown 并提交到 `main`，GitHub Actions 会重新生成和发布网站。
 
@@ -113,6 +147,8 @@ git push
 来源：[LKDenchin/hexo-theme-firefly](https://github.com/LKDenchin/hexo-theme-firefly)。目前作者标记为开发者预览，已固定保存这次安装的源码，不会自行更新。版本与兼容性调整见 `themes/firefly/LOCAL-CHANGES.md`。
 
 更新前先提交本地修改，保留主题配置，再合并上游新版与本地调整，不要覆盖自己的配置。以前的 `_config.butterfly.yml` 与 journal 样式文件保留用于恢复，当前主题不加载它们。
+
+内容扩展检查结果见 [EXTENSIBILITY-REVIEW.md](EXTENSIBILITY-REVIEW.md)。后续修改主题后，可先执行 `pnpm run build:ui`，再执行 `pnpm run check:content`，自动在临时目录检查多篇文章、分类分页和空博客；测试文章不会进入正式博客。
 
 ## 完整模块预览（2026-10-07）
 

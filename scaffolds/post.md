@@ -1,5 +1,9 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags:
+categories:
+  - 学习笔记
+tags: []
+description: ''
+cover: ''
 ---

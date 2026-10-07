@@ -42,28 +42,30 @@ var allCategories = site.categories.sort('length', -1).filter(function(cat) {
       <% if (allCategories.length > 0) { %>
         <% allCategories.forEach(function(cat) { %>
         <section class="category-folder-card card-base">
+          <div class="category-folder-visual" data-label="<%= cat.name %>">
+            <span class="category-folder-fallback material-symbols-outlined" aria-hidden="true">folder</span>
+          </div>
+          <div class="category-folder-content">
           <header class="category-folder-header">
             <div>
-              <% var parent = cat.parent ? site.categories.findById(cat.parent) : null; %>
+              <% var parent = cat.parent ? site.categories.findOne({_id: cat.parent}) : null; %>
               <p class="category-folder-eyebrow"><%= parent ? parent.name + ' / 子分类' : '笔记收藏夹' %></p>
               <h2><a href="<%= url_for(cat.path) %>"><%= cat.name %></a></h2>
             </div>
             <span class="category-folder-count"><%= cat.posts.length %> 篇</span>
           </header>
-          <div class="category-folder-visual" data-label="<%= cat.name %>">
-            <span class="category-folder-fallback material-symbols-outlined" aria-hidden="true">folder</span>
-          </div>
-          <p class="category-folder-hint">点击文件夹，翻开这份收藏</p>
+          <p class="category-folder-hint"><%= cat.posts.length > 1 ? '点击展开最近文章' : '这份收藏，慢慢积累' %></p>
           <div class="category-folder-posts" aria-label="<%= cat.name %>的文章">
-            <% cat.posts.sort('date', -1).limit(3).forEach(function(post) { %>
-            <a href="<%= url_for(post.path) %>" class="category-folder-post">
+            <% cat.posts.sort('date', -1).limit(3).forEach(function(post, index) { %>
+            <a href="<%= url_for(post.path) %>" class="category-folder-post<%= index > 0 ? ' category-folder-post-extra' : '' %>">
               <span class="category-folder-post-date"><%= date(post.date, 'YYYY.MM.DD') %></span>
-              <span><%= post.title %></span>
+              <span class="category-folder-post-title"><%= post.title %></span>
               <span aria-hidden="true">↗</span>
             </a>
             <% }); %>
           </div>
           <a href="<%= url_for(cat.path) %>" class="category-folder-browse">查看全部文章 <span aria-hidden="true">→</span></a>
+          </div>
         </section>
         <% }); %>
       <% } else { %>

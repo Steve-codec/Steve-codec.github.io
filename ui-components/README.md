@@ -25,3 +25,6 @@ The React reading bundle loads only on article pages. Home, archive, and categor
 The category index loads a separate `category-folders.js` bundle. Hexo renders category names, article links, and counts before JavaScript runs. The Folder component's animations stay inside a fixed stage; opening reveals those article links. Local adaptations add keyboard operation, reduced-motion support, persistent open state, a callback, and unique SVG filter IDs. The duplicated content navigation is removed from page templates; the main header navigation remains.
 
 The translucent flap retains its SVG fill, but its backdrop blur is disabled to avoid edge smearing in the browser's 3D compositor.
+# 分类卡片布局调整
+
+Folder 新增 xs 尺寸，保持内部透视距离固定，再整体缩小，避免小尺寸下展开面板过度拉伸。分类卡片使用横向布局：小文件夹、分类名称与文章预览；最新文章始终可读，另外两篇由文件夹按钮展开。链接和分类数量仍由 Hexo 生成，未加载 JavaScript 时文章列表仍可阅读。

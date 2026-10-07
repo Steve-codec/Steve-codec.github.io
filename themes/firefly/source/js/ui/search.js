@@ -155,17 +155,22 @@
       }
       
       this.resultsContainer.innerHTML = this.results.map((r, i) => `
-        <a href="${r.path}" class="search-result-item ${i === this.selectedIndex ? 'active' : ''}" data-index="${i}">
+        <a href="${this.escapeHtml(r.path)}" class="search-result-item ${i === this.selectedIndex ? 'active' : ''}" data-index="${i}">
           <div class="result-title">${this.highlight(r.title, this.input?.value || '')}</div>
           <div class="result-excerpt">${this.highlight(this.getExcerpt(r.content, this.input?.value || ''), this.input?.value || '')}</div>
         </a>
       `).join('');
     },
     
+    escapeHtml(text) {
+      return String(text).replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
+    },
+
     highlight(text, query) {
-      if (!query) return text;
+      if (!query) return this.escapeHtml(text);
       const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+      return String(text).split(new RegExp(`(${escaped})`, 'gi'))
+        .map((part, index) => index % 2 ? `<mark>${this.escapeHtml(part)}</mark>` : this.escapeHtml(part)).join('');
     },
     
     handleKeydown(e) {

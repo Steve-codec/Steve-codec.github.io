@@ -50,6 +50,7 @@ const themes = {
 } as const;
 
 const sizeScales = {
+  xs: 0.30,
   sm: 0.65,
   md: 1,
   lg: 1.35,
@@ -57,7 +58,7 @@ const sizeScales = {
 
 type FolderComponentProps = Omit<React.ComponentProps<"div">, "color"> & {
   color?: "black" | "white" | "blue";
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   label?: string;
   onOpenChange?: (open: boolean) => void;
 };
@@ -128,7 +129,7 @@ const FolderComponent = ({
             width: BASE_WIDTH,
             height: BASE_HEIGHT,
             transform: `translate(-50%, -50%) scale(${scale})`,
-            perspective: 800 * scale,
+            perspective: 800,
           }}
         >
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">

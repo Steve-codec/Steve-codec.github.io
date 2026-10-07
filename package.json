@@ -8,7 +8,8 @@
     "deploy": "hexo deploy",
     "server": "hexo server --ip 127.0.0.1",
     "preview": "hexo server --draft --ip 127.0.0.1",
-    "build:ui": "node ui-components/build.cjs"
+    "build:ui": "node ui-components/build.cjs",
+    "check:content": "node checks/content-expansion.cjs && node checks/content-expansion.cjs --empty"
   },
   "hexo": {
     "version": "8.1.2"

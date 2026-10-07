@@ -86,3 +86,10 @@
 - toc.js 避免重复初始化覆盖 React 目录，并允许卸载原先的目录观察器；没有加载增强脚本时仍使用原目录。
 - refinements.css 调整文章卡片、侧栏和播放器的间距、字体与轻微交互反馈，保留静态背景及用户的主题色偏好。
 - 音乐控制监听真实 play/pause/waiting/playing 等事件，同步图标、名称和加载状态；预读取音频元数据，不自动播放。歌单通过 APlayer 原生 show/hide 打开与关闭。
+# 内容扩展与紧凑分类（2026-10-07）
+
+- categories.ejs 使用横向小型文件夹卡片，最新文章始终可读，另外两篇由按钮展开；全部链接和计数仍由 Hexo 生成。
+- Rare UI Folder 增加 xs 尺寸；内部透视距离固定后整体缩放，避免小尺寸展开时面板过度拉伸。继续遵守减少动画偏好并保留键盘操作。
+- archive.ejs 使用 page.posts，修正归档分页重复和年份筛选无效；分类总页查询父分类改用 findOne，防止加入子分类后生成空页面。
+- search.js 转义结果标题、摘要与链接，高亮文字保持原样。
+- checks/content-expansion.cjs 在独立临时博客检查多文章、分页、子分类、搜索、统计与空博客；详见 EXTENSIBILITY-REVIEW.md。
