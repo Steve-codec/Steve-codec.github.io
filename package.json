@@ -38,7 +38,7 @@
     "marked-katex-extension": "^5.1.13",
     "moment": "^2.31.0",
     "motion": "^14.0.0",
-    "react": "^19.3.0",
+    "react": "^19.3.1",
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
