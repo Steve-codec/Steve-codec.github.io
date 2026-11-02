@@ -37,7 +37,7 @@
     "katex": "^0.18.0",
     "marked-katex-extension": "^5.1.13",
     "moment": "^2.31.0",
-    "motion": "^14.0.0",
+    "motion": "^14.8.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
